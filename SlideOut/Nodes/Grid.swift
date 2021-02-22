@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 
 protocol GridDelegate: class {
-    func moveTo(gridPosition: CGPoint)
+    func moveTo(squarePoint: CGPoint)
 }
 
 class Grid: SKSpriteNode {
@@ -19,7 +19,8 @@ class Grid: SKSpriteNode {
     var cols: Int!
     var blockSize: CGFloat!
     var movableNode: SKNode?
-    var dir: Direction?
+    var currentDirection: Direction?
+    var playerShouldMove: Bool = true
 
     convenience init?(blockSize: CGFloat, rows: Int, cols: Int) {
         guard let texture = Grid.gridTexture(blockSize: blockSize, rows: rows, cols: cols) else {
@@ -71,29 +72,63 @@ class Grid: SKSpriteNode {
         return CGPoint(x:x, y:y)
     }
     
-    func checkIsWithinGrid(col: CGFloat, row: CGFloat, dir: Direction) -> CGPoint? {
+    func isValidGridPosition(col: CGFloat, row: CGFloat, dir: Direction) -> Bool {
+        switch dir {
+        case .up:
+            if col != 0.0 {
+                return true
+            }
+        case .down:
+            if col != CGFloat(cols-1) {
+                return true
+            }
+        case .left:
+            if row != 0.0 {
+                return true
+            }
+        case .right:
+            if row != CGFloat(rows-1) {
+                return true
+            }
+        default: return false
+        }
+        return false
+    }
+    
+    func moveToNewGridPositionFrom(col: CGFloat, row: CGFloat, dir: Direction) -> CGPoint? {
         var x = row
         var y = col
+        var move: Bool = false
+        var newDir: Direction? = nil
         switch dir {
         case .up:
             if y != 0.0 {
                 y = y-1
+                move = true
+                newDir = .up
             }
         case .down:
-            if y != col-1 {
+            if y != CGFloat(cols-1) {
                 y = y+1
+                move = true
+                newDir = .down
             }
         case .left:
             if x != 0.0 {
                 x = x-1
+                move = true
+                newDir = .left
             }
         case .right:
-            if x != row-1 {
+            if x != CGFloat(rows-1) {
                 x = x+1
+                move = true
+                newDir = .right
             }
         default: return nil
         }
-        
+        currentDirection = newDir
+        playerShouldMove = move
         return CGPoint(x: x, y: y)
     }
     
@@ -104,7 +139,7 @@ class Grid: SKSpriteNode {
             if node != self {
                 if node is Player {
                     node.removeAllActions()
-                    dir = nil
+                    currentDirection = nil
                     movableNode = node
                 }
             }
@@ -136,42 +171,30 @@ class Grid: SKSpriteNode {
                     let x = abs(xTouch/distance) > 0.4 ? Int(sign(Float(xTouch))) : 0
                     let y = abs(yTouch/distance) > 0.4 ? Int(sign(Float(yTouch))) : 0
                     
-                    var swiped = true
                     switch (x,y) {
                     case (0,1):
-                        dir = .up
-                        print("swiped up")
+                        currentDirection = .up
                     case (0,-1):
-                        dir = .down
-                        print("swiped down")
+                        currentDirection = .down
                     case (-1,0):
-                        dir = .left
-                        print("swiped left")
+                        currentDirection = .left
                     case (1,0):
-                        dir = .right
-                        print("swiped right")
+                        currentDirection = .right
                     case (1,1):
-                        dir = .upright
-                        print("swiped diag up-right")
+                        currentDirection = .upright
                     case (-1,-1):
-                        dir = .downleft
-                        print("swiped diag down-left")
+                        currentDirection = .downleft
                     case (-1,1):
-                        dir = .upleft
-                        print("swiped diag up-left")
+                        currentDirection = .upleft
                     case (1,-1):
-                        dir = .downright
-                        print("swiped diag down-right")
+                        currentDirection = .downright
                     default:
-                        dir = nil
-                        swiped = false
+                        currentDirection = nil
                         break
                     }
-                    print("Direction: ", dir)
                 }
                 else {
                     player.color = .red
-                    print("Distance too small")
                 }
             }
         }
@@ -181,13 +204,21 @@ class Grid: SKSpriteNode {
         if let touch = touches.first, movableNode != nil {
             if let player = movableNode as? Player {
                 player.color = .red
-                if dir != nil {
-                    if let position = checkIsWithinGrid(col: player.row, row: player.col, dir: dir!) {
-                        
-                        player.row = position.x
-                        player.col = position.y
-                        let newPosition = self.gridPosition(row: Int(position.x), col: Int(position.y))
-                        self.delegate?.moveTo(gridPosition: newPosition)
+                
+                print("currentDirection: ", currentDirection)
+                print("playerShouldMove: ", playerShouldMove)
+                if currentDirection != nil {
+                    playerShouldMove = isValidGridPosition(col: player.col, row: player.row, dir: currentDirection!)
+                    while playerShouldMove {
+                        if let squareInGrid = moveToNewGridPositionFrom(col: player.col, row: player.row, dir: currentDirection!) {
+                            let squarePosition = self.gridPosition(row: Int(squareInGrid.x), col: Int(squareInGrid.y))
+                            player.row = squareInGrid.x
+                            player.col = squareInGrid.y
+                            
+                            print("player row x: ", player.row)
+                            print("player col y: ", player.col)
+                            self.delegate?.moveTo(squarePoint: squarePosition)
+                        }
                     }
                 }
             }

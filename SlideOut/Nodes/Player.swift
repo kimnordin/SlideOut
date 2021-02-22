@@ -12,6 +12,22 @@ import GameplayKit
 class Player: SKSpriteNode {
     
     var currentGridPosition = CGPoint(x: 0, y: 0)
+    
+    var direction: Direction? {
+        didSet {
+            switch direction {
+            case .up:
+                row = row + 1
+            case .down:
+                row = row - 1
+            case .left:
+                col = col - 1
+            case .right:
+                col = col + 1
+            default: break
+            }
+        }
+    }
     var col: CGFloat = 0.0
     var row: CGFloat = 0.0
     

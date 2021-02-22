@@ -23,6 +23,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
         }
     }
     
+    
+    
     // MARK: Nodes
     var player = Player(color: .red, size: CGSize(width: 50, height: 50))
     var block = Block(color: .yellow, size: CGSize(width: 50, height: 50))
@@ -39,9 +41,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     let grid = Grid(blockSize: 50.0, rows: 12, cols: 8)
     var toPosition: CGPoint = CGPoint(x: 0, y: 0) {
         didSet {
-
             
-            let moveAction = SKAction.move(to: toPosition, duration: 0.2)
+            let moveAction = SKAction.move(to: toPosition, duration: 1.0)
             player.run(moveAction)
             player.currentGridPosition = toPosition
         }
@@ -96,9 +97,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
         }
     }
     
-    func moveTo(gridPosition: CGPoint) {
-        toPosition = gridPosition
-        print("move to: ", gridPosition)
+    func movePlayer(from position: CGPoint) {
+        let moveAction = SKAction.move(to: toPosition, duration: 0.2)
+        player.run(moveAction)
+    }
+    
+    func moveTo(squarePoint: CGPoint) {
+        toPosition = squarePoint
+        print("move to: ", squarePoint)
     }
 
     override func update(_ currentTime: TimeInterval) {
