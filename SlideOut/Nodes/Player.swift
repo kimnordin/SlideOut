@@ -11,7 +11,6 @@ import GameplayKit
 
 class Player: SKSpriteNode {
     
-    var currentGridPosition = CGPoint(x: 0, y: 0)
     var col: CGFloat = 0.0
     var row: CGFloat = 0.0
     

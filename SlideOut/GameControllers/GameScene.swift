@@ -10,6 +10,8 @@ import GameplayKit
 
 let gameTime = 60.0
 
+//var levelArray = [Level(levelNumber: <#T##Int#>, name: <#T##String#>)]
+
 class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     
     //MARK: Game Properties
@@ -39,11 +41,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     let grid = Grid(blockSize: 50.0, rows: 12, cols: 8)
     var toPosition: CGPoint = CGPoint(x: 0, y: 0) {
         didSet {
-
-            
             let moveAction = SKAction.move(to: toPosition, duration: 0.2)
             player.run(moveAction)
-            player.currentGridPosition = toPosition
         }
     }
     
@@ -57,7 +56,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     var movableObject = false
     
     override func didMove(to view: SKView) {
-        
         if let grid = grid {
             grid.delegate = self
             grid.position = CGPoint (x:frame.midX, y:frame.midY)

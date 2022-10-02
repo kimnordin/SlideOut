@@ -68,10 +68,17 @@ class Grid: SKSpriteNode {
         let offset = blockSize / 2.0 + 0.5
         let x = CGFloat(row) * blockSize - (blockSize * CGFloat(rows)) / 2.0 + offset
         let y = CGFloat(cols - col - 1) * blockSize - (blockSize * CGFloat(cols)) / 2.0 + offset
-        return CGPoint(x:x, y:y)
+        return CGPoint(x: x, y: y)
     }
     
-    func checkIsWithinGrid(col: CGFloat, row: CGFloat, dir: Direction) -> CGPoint? {
+    /**
+     Returns a new position if it is within the bounds of the grid, given a current position and a direction to move in
+     - parameter col: The current column position of the Player
+     - parameter row: The current row position of the Player
+     - parameter dir: The swiped Direction, indicating where to move
+     - returns CGPoint?: The new position to move to if it is within the bounds of the grid
+     */
+    func positionWithinGrid(col: CGFloat, row: CGFloat, dir: Direction) -> CGPoint? {
         var x = row
         var y = col
         switch dir {
@@ -130,7 +137,6 @@ class Grid: SKSpriteNode {
                 
                 // Check if the user's finger moved a minimum distance
                 if distance > 30 {
-                    
                     player.color = .yellow
                     // Determine the direction of the swipe
                     let x = abs(xTouch/distance) > 0.4 ? Int(sign(Float(xTouch))) : 0
@@ -140,36 +146,27 @@ class Grid: SKSpriteNode {
                     switch (x,y) {
                     case (0,1):
                         dir = .up
-                        print("swiped up")
                     case (0,-1):
                         dir = .down
-                        print("swiped down")
                     case (-1,0):
                         dir = .left
-                        print("swiped left")
                     case (1,0):
                         dir = .right
-                        print("swiped right")
                     case (1,1):
                         dir = .upright
-                        print("swiped diag up-right")
                     case (-1,-1):
                         dir = .downleft
-                        print("swiped diag down-left")
                     case (-1,1):
                         dir = .upleft
-                        print("swiped diag up-left")
                     case (1,-1):
                         dir = .downright
-                        print("swiped diag down-right")
                     default:
                         dir = nil
                         swiped = false
                         break
                     }
                     print("Direction: ", dir)
-                }
-                else {
+                } else {
                     player.color = .red
                     print("Distance too small")
                 }
@@ -182,8 +179,7 @@ class Grid: SKSpriteNode {
             if let player = movableNode as? Player {
                 player.color = .red
                 if dir != nil {
-                    if let position = checkIsWithinGrid(col: player.row, row: player.col, dir: dir!) {
-                        
+                    if let position = positionWithinGrid(col: player.col, row: player.row, dir: dir!) {
                         player.row = position.x
                         player.col = position.y
                         let newPosition = self.gridPosition(row: Int(position.x), col: Int(position.y))
