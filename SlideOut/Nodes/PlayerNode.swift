@@ -21,10 +21,6 @@ class PlayerNode: SKSpriteNode {
         super.init(texture: nil, color: UIColor().named(player.color ?? "red") ?? .red, size: size)
     }
     
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

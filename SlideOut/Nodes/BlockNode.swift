@@ -17,13 +17,6 @@ class BlockNode: SKSpriteNode {
         super.init(texture: nil, color: UIColor().named(block.color ?? "red") ?? .red, size: size)
     }
     
-    init(imageNamed: String) {
-        let color = UIColor()
-        let texture = SKTexture(imageNamed: imageNamed)
-        let size = CGSize(width: 50, height: 50)
-        super.init(texture: texture, color: color, size: size)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

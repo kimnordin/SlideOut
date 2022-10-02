@@ -13,7 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     //MARK: Game Properties
     private var levels: Levels!
     var currentLevelModel: LevelModel!
-    var currentLevel = 3
+    var currentLevel = 0
     
     // MARK: HUD
     var levelLabel: SKLabelNode?
@@ -21,7 +21,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     // MARK: Nodes
     var playerNode: PlayerNode!
     var gridNode: GridNode!
-    var blockNode: BlockNode!
+    var goalNode: GoalNode!
+    var movableBlockNodes = [MovableBlockNode]()
     
     // MARK: Sound
     let moveSound = SKAction.playSoundFileNamed("move.wav", waitForCompletion: false)
@@ -37,20 +38,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     
     // MARK: Collision Categories
     let playerCategory: UInt32 = 0x1 << 0 //1
-    let wallCategory: UInt32 = 0x1 << 1 //2
+    let goalCategory: UInt32 = 0x1 << 1 //2
     let blockCategory: UInt32 = 0x1 << 2 //4
+    let movableBlockCategory: UInt32 = 0x1 << 3 //8
     
     override func didMove(to view: SKView) {
+        initGame()
+        
+        self.physicsWorld.contactDelegate = self
+    }
+    
+    func initGame() {
         levels = initLevel(from: "GameLevels", withExtension: "json")
         currentLevelModel = levels[currentLevel]
         
         initGrid()
+        initGoal()
         initPlayer()
         initBlocks()
+        initMovableBlocks()
         addActions()
         createHUD()
-        
-        self.physicsWorld.contactDelegate = self
+    }
+    
+    func clearGame() {
+        remove(node: gridNode)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -66,24 +78,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
             otherBody = contact.bodyA
         }
 
+        if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == goalCategory {
+            currentLevel += 1
+            clearGame()
+            initGame()
+        }
+        
         if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == blockCategory {
             if let player = playerBody.node as? PlayerNode,
                 let block = otherBody.node as? BlockNode  {
                 switch player.direction {
                 case UISwipeGestureRecognizer.Direction.up:
-                    if player.position.y < block.position.y && player.position.x < block.position.x + 10 && player.position.x > block.position.x - 10 {
+                    if player.position.y < block.position.y && player.position.x < block.position.x + 2 && player.position.x > block.position.x - 2 {
                         stopPlayer(player.direction)
                     }
                 case UISwipeGestureRecognizer.Direction.down:
-                    if player.position.y > block.position.y && player.position.x < block.position.x + 10 && player.position.x > block.position.x - 10 {
+                    if player.position.y > block.position.y && player.position.x < block.position.x + 2 && player.position.x > block.position.x - 2 {
                         stopPlayer(player.direction)
                     }
                 case UISwipeGestureRecognizer.Direction.left:
-                    if player.position.x > block.position.x && player.position.y < block.position.y + 10 && player.position.y > block.position.y - 10 {
+                    if player.position.x > block.position.x && player.position.y < block.position.y + 2 && player.position.y > block.position.y - 2 {
                         stopPlayer(player.direction)
                     }
                 case UISwipeGestureRecognizer.Direction.right:
-                    if player.position.x < block.position.x && player.position.y < block.position.y + 10 && player.position.y > block.position.y - 10 {
+                    if player.position.x < block.position.x && player.position.y < block.position.y + 2 && player.position.y > block.position.y - 2 {
                         stopPlayer(player.direction)
                     }
                 default: return
@@ -96,16 +114,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
         if playerNode.position.y > gridNode.size.height / 2 - playerNode.size.height / 2 || playerNode.position.y < -gridNode.size.height / 2 + playerNode.size.height/2
         || playerNode.position.x > gridNode.size.width / 2 - playerNode.size.width / 2 || playerNode.position.x < -gridNode.size.width / 2 + playerNode.size.width / 2 {
             movePlayerToStart()
+            moveMovableBlocksToStart()
         }
     }
     
     func moveTo(gridPosition: CGPoint) {
         toPosition = gridPosition
-    }
-    
-    func stopPlayer(_ direction: UISwipeGestureRecognizer.Direction?) {
-        playerNode.collision = direction
-        playerNode.removeAllActions()
-        playerNode.moving = false
     }
 }

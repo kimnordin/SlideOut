@@ -87,6 +87,12 @@ extension GameScene {
         movePlayer(direction: .down)
     }
     
+    func stopPlayer(_ direction: UISwipeGestureRecognizer.Direction?) {
+        playerNode.collision = direction
+        playerNode.removeAllActions()
+        playerNode.moving = false
+    }
+    
     func movePlayerToStart() {
         playerNode.collision = nil
         playerNode.direction = nil
@@ -94,6 +100,13 @@ extension GameScene {
         playerNode.removeAllActions()
         remove(node: playerNode)
         initPlayer()
+    }
+    
+    func moveMovableBlocksToStart() {
+        for movableBlock in movableBlockNodes {
+            remove(node: movableBlock)
+        }
+        initMovableBlocks()
     }
     
     func remove(node: SKNode) {
@@ -107,7 +120,7 @@ extension GameScene {
             }
         }
     }
-    
+
     func endGame(){
         let gameScene = GameScene(size: self.size)
         self.view!.presentScene(gameScene)

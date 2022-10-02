@@ -1,89 +1,48 @@
 [
     {
         "name": "First Level",
-        "squareSize": 50,
+        "squareSize": 40,
         "player": {
             "color": "red",
-            "position": { "row": 1, "column": 1 }
+            "position": { "row": 0, "column": 0 }
+        },
+        "goal": {
+            "color": "green",
+            "position": { "row": 4, "column": 2 }
         },
         "grid": {
-            "rows": 8,
-            "columns": 12
+            "rows": 5,
+            "columns": 5
         },
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "row": 1, "column": 8 }
+                "position": { "row": 1, "column": 3 }
             },
             {
                 "color": "yellow",
-                "position": { "row": 1, "column": 8 }
+                "position": { "row": 2, "column": 1 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 4, "column": 0 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 3, "column": 4 }
             }
         ]
     },
     {
         "name": "Second Level",
-        "squareSize": 50,
-        "player": {
-            "color": "red",
-            "position": { "row": 1, "column": 3 }
-        },
-        "grid": {
-            "rows": 10,
-            "columns": 14
-        },
-        "blocks": [
-            {
-                "color": "yellow",
-                "position": { "row": 1, "column": 8 }
-            },
-            {
-                "color": "yellow",
-                "position": { "row": 1, "column": 8 }
-            }
-        ]
-    },
-    {
-        "name": "Third Level",
-        "squareSize": 20,
-        "player": {
-            "color": "red",
-            "position": { "row": 12, "column": 7 }
-        },
-        "grid": {
-            "rows": 17,
-            "columns": 22
-        },
-        "blocks": [
-            {
-                "color": "yellow",
-                "position": { "row": 2, "column": 19 }
-            },
-            {
-                "color": "yellow",
-                "position": { "row": 8, "column": 19 }
-            },
-            {
-                "color": "yellow",
-                "position": { "row": 8, "column": 7 }
-            },
-            {
-                "color": "yellow",
-                "position": { "row": 1, "column": 8 }
-            },
-            {
-                "color": "yellow",
-                "position": { "row": 5, "column": 9 }
-            },
-        ]
-    },
-    
-    {
-        "name": "Third Level",
         "squareSize": 20,
         "player": {
             "color": "red",
             "position": { "row": 1, "column": 0 }
+        },
+        "goal": {
+            "color": "green",
+            "position": { "row": 7, "column": 4 }
         },
         "grid": {
             "rows": 8,
@@ -101,6 +60,54 @@
             {
                 "color": "yellow",
                 "position": { "row": 3, "column": 1 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 7, "column": 2 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 6, "column": 11 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 3, "column": 10 }
+            }
+        ]
+    },
+    {
+        "name": "Third Level",
+        "squareSize": 20,
+        "player": {
+            "color": "red",
+            "position": { "row": 1, "column": 13 }
+        },
+        "goal": {
+            "color": "green",
+            "position": { "row": 2, "column": 9 }
+        },
+        "grid": {
+            "rows": 10,
+            "columns": 15
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "row": 7, "column": 4 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 4, "column": 3 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 1, "column": 3 }
+            }
+        ],
+        "movableBlocks": [
+            {
+                "color": "orange",
+                "position": { "row": 1, "column": 6 }
             }
         ]
     }

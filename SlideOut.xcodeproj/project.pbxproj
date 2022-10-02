@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F2194EC225E57E7700CF7DB6 /* GameLevels.json in Resources */ = {isa = PBXBuildFile; fileRef = F2194EB925E5751500CF7DB6 /* GameLevels.json */; };
 		F29D1A6728E9BD7C00D67843 /* LevelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6628E9BD7C00D67843 /* LevelModel.swift */; };
+		F29D1A6B28EA217000D67843 /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6A28EA217000D67843 /* GoalNode.swift */; };
+		F29D1A6D28EA294700D67843 /* MovableBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */; };
 		F2DF34B028E9B40700F53303 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF34AF28E9B40700F53303 /* Extensions.swift */; };
 		F2EBAAD225D950D00060D34E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EBAAD125D950D00060D34E /* AppDelegate.swift */; };
 		F2EBAAD425D950D00060D34E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2EBAAD325D950D00060D34E /* GameScene.sks */; };
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		F2194EB925E5751500CF7DB6 /* GameLevels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameLevels.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		F29D1A6628E9BD7C00D67843 /* LevelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModel.swift; sourceTree = "<group>"; };
+		F29D1A6A28EA217000D67843 /* GoalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
+		F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableBlockNode.swift; sourceTree = "<group>"; };
 		F2DF34AF28E9B40700F53303 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F2EBAACE25D950D00060D34E /* SlideOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2EBAAD125D950D00060D34E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,11 +108,11 @@
 		F2EBAAD025D950D00060D34E /* SlideOut */ = {
 			isa = PBXGroup;
 			children = (
-				F29D1A6928E9D41400D67843 /* GameScenes */,
-				F29D1A6828E9BD7F00D67843 /* Models */,
 				F2194EB825E574F100CF7DB6 /* JSON */,
+				F29D1A6828E9BD7F00D67843 /* Models */,
 				F2EBAAE725D951590060D34E /* Nodes */,
 				F2EBAAF025D951680060D34E /* GameControllers */,
+				F29D1A6928E9D41400D67843 /* GameScenes */,
 				F2DF34B128E9B41100F53303 /* Utils */,
 				F2EBAAD125D950D00060D34E /* AppDelegate.swift */,
 				F2EBAAFB25D9535E0060D34E /* GameViewController.swift */,
@@ -122,9 +126,11 @@
 		F2EBAAE725D951590060D34E /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				F2EBAAE825D951590060D34E /* BlockNode.swift */,
 				F2EBAAE925D951590060D34E /* PlayerNode.swift */,
+				F29D1A6A28EA217000D67843 /* GoalNode.swift */,
+				F2EBAAE825D951590060D34E /* BlockNode.swift */,
 				F2EBAAF825D9517A0060D34E /* GridNode.swift */,
+				F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -210,9 +216,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29D1A6B28EA217000D67843 /* GoalNode.swift in Sources */,
 				F29D1A6728E9BD7C00D67843 /* LevelModel.swift in Sources */,
 				F2EBAAF425D951680060D34E /* GameScene.swift in Sources */,
 				F2EBAAEB25D951590060D34E /* BlockNode.swift in Sources */,
+				F29D1A6D28EA294700D67843 /* MovableBlockNode.swift in Sources */,
 				F2EBAAF925D9517A0060D34E /* GridNode.swift in Sources */,
 				F2EBAAFC25D9535E0060D34E /* GameViewController.swift in Sources */,
 				F2EBAAEC25D951590060D34E /* PlayerNode.swift in Sources */,

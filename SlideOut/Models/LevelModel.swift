@@ -13,8 +13,10 @@ struct LevelModel: Codable {
     let name: String
     let squareSize: Int
     let player: Square
+    let goal: Square
     let grid: Grid
     let blocks: [Square]?
+    let movableBlocks: [Square]?
 }
 
 // MARK: - Grid
