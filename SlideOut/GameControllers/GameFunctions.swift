@@ -19,7 +19,7 @@ enum Direction {
     case downleft
 }
 
-extension Player {
+extension PlayerNode {
     func movePlayer(direction: Direction) {
         if !self.hasActions() {
             switch direction {

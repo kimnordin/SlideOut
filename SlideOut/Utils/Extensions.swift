@@ -6,3 +6,14 @@
 //
 
 import Foundation
+import UIKit
+
+extension UIColor {
+    public func named(_ name: String) -> UIColor? {
+        let allColors: [String: UIColor] = [
+            "red": .red,
+        ]
+        let cleanedName = name.replacingOccurrences(of: " ", with: "").lowercased()
+        return allColors[cleanedName]
+    }
+}

@@ -1,37 +1,39 @@
-{
-    "1": {
-        
+[
+    {
         "name": "First Level",
-        "player": { "size": 50, "row": 1, "col": 2 },
+        "player": {
+            "size": 50.0,
+            "color": "Red",
+            "position": { "row": 1, "column": 1 }
+        },
         "grid": {
             "squareSize": 50,
             "rows": 8,
             "columns": 12
-        },
-        "waves": [{"blocks" : [{ "type": "normal",
-            "position": { "x": 1, "y": 3 }
-        },
-        
-        { "type": "normal",
-            "position": { "x": 3, "y": 3 }
-        }]
-        }]
+        }
     },
-    "2": {
+    {
         "name": "Second Level",
-        "player": { "row": 1, "col": 2 },
+        "player": {
+            "size": 50,
+            "position": { "row": 1, "column": 3 }
+        },
         "grid": {
-            "squareSize": 50,
-            "rows": 8,
-            "columns": 12
+            "squareSize": 50.0,
+            "rows": 10,
+            "columns": 14
+        }
+    },
+    {
+        "name": "Third Level",
+        "player": {
+            "size": 30,
+            "position": { "row": 12, "column": 7 }
         },
-        "waves": [{"blocks" : [{ "type": "normal",
-            "position": { "x": 1, "y": 3 }
-        },
-        
-        { "type": "normal",
-            "position": { "x": 3, "y": 3 }
-        }]
-        }]
+        "grid": {
+            "squareSize": 30.0,
+            "rows": 17,
+            "columns": 22
+        }
     }
-}
+]

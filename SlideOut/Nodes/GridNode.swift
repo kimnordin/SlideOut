@@ -13,28 +13,24 @@ protocol GridDelegate: class {
     func moveTo(gridPosition: CGPoint)
 }
 
-class Grid: SKSpriteNode {
+class GridNode: SKSpriteNode {
     weak var delegate: GridDelegate!
-    var rows: Int!
-    var cols: Int!
-    var blockSize: CGFloat!
+    var grid: Grid!
     var movableNode: SKNode?
     var dir: Direction?
 
-    convenience init?(blockSize: CGFloat, rows: Int, cols: Int) {
-        guard let texture = Grid.gridTexture(blockSize: blockSize, rows: rows, cols: cols) else {
+    convenience init?(grid: Grid) {
+        guard let texture = GridNode.gridTexture(squareSize: grid.squareSize, rows: grid.rows, cols: grid.columns) else {
             return nil
         }
         self.init(texture: texture, color: SKColor.clear, size: texture.size())
         self.isUserInteractionEnabled = true
-        self.blockSize = blockSize
-        self.rows = rows
-        self.cols = cols
+        self.grid = grid
     }
 
-    class func gridTexture(blockSize: CGFloat, rows: Int, cols: Int) -> SKTexture? {
+    class func gridTexture(squareSize: CGFloat, rows: Int, cols: Int) -> SKTexture? {
         // Add 1 to the height and width to ensure the borders are within the sprite
-        let size = CGSize(width: CGFloat(rows)*blockSize+1.0, height: CGFloat(cols)*blockSize+1.0)
+        let size = CGSize(width: CGFloat(rows)*squareSize+1.0, height: CGFloat(cols)*squareSize+1.0)
         UIGraphicsBeginImageContext(size)
 
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -44,13 +40,13 @@ class Grid: SKSpriteNode {
         let offset:CGFloat = 0.5
         // Draw vertical lines
         for i in 0...cols {
-            let y = CGFloat(i)*blockSize + offset
+            let y = CGFloat(i)*squareSize + offset
             bezierPath.move(to: CGPoint(x: 0, y: y))
             bezierPath.addLine(to: CGPoint(x: size.width, y: y))
         }
         // Draw horizontal lines
         for i in 0...rows {
-            let x = CGFloat(i)*blockSize + offset
+            let x = CGFloat(i)*squareSize + offset
             bezierPath.move(to: CGPoint(x: x, y: 0))
             bezierPath.addLine(to: CGPoint(x: x, y: size.height))
         }
@@ -65,9 +61,9 @@ class Grid: SKSpriteNode {
     }
 
     func gridPosition(row: Int, col: Int) -> CGPoint {
-        let offset = blockSize / 2.0 + 0.5
-        let x = CGFloat(row) * blockSize - (blockSize * CGFloat(rows)) / 2.0 + offset
-        let y = CGFloat(cols - col - 1) * blockSize - (blockSize * CGFloat(cols)) / 2.0 + offset
+        let offset = grid.squareSize / 2.0 + 0.5
+        let x = CGFloat(row) * grid.squareSize - (grid.squareSize * CGFloat(grid.rows)) / 2.0 + offset
+        let y = CGFloat(grid.columns - col - 1) * grid.squareSize - (grid.squareSize * CGFloat(grid.columns)) / 2.0 + offset
         return CGPoint(x: x, y: y)
     }
     
@@ -78,12 +74,12 @@ class Grid: SKSpriteNode {
      - parameter dir: The swiped Direction, indicating where to move
      - returns CGPoint?: The new position to move to if it is within the bounds of the grid
      */
-    func positionWithinGrid(col: CGFloat, row: CGFloat, dir: Direction) -> CGPoint? {
+    func positionWithinGrid(col: Int, row: Int, dir: Direction) -> CGPoint? {
         var x = row
         var y = col
         switch dir {
         case .up:
-            if y != 0.0 {
+            if y != 0 {
                 y = y-1
             }
         case .down:
@@ -91,7 +87,7 @@ class Grid: SKSpriteNode {
                 y = y+1
             }
         case .left:
-            if x != 0.0 {
+            if x != 0 {
                 x = x-1
             }
         case .right:
@@ -109,7 +105,7 @@ class Grid: SKSpriteNode {
             let position = touch.location(in:self)
             let node = atPoint(position)
             if node != self {
-                if node is Player {
+                if node is PlayerNode {
                     node.removeAllActions()
                     dir = nil
                     movableNode = node
@@ -118,8 +114,8 @@ class Grid: SKSpriteNode {
             else {
                 let x = size.width / 2 + position.x
                 let y = size.height / 2 - position.y
-                let row = Int(floor(x / blockSize))
-                let col = Int(floor(y / blockSize))
+                let row = Int(floor(x / grid.squareSize))
+                let col = Int(floor(y / grid.squareSize))
                 print("\(row) \(col)")
             }
         }
@@ -133,11 +129,11 @@ class Grid: SKSpriteNode {
             
             let distance = sqrt(xTouch*xTouch+yTouch*yTouch)
             
-            if let player = movableNode as? Player {
+            if let playerNode = movableNode as? PlayerNode {
                 
                 // Check if the user's finger moved a minimum distance
                 if distance > 30 {
-                    player.color = .yellow
+                    playerNode.color = .yellow
                     // Determine the direction of the swipe
                     let x = abs(xTouch/distance) > 0.4 ? Int(sign(Float(xTouch))) : 0
                     let y = abs(yTouch/distance) > 0.4 ? Int(sign(Float(yTouch))) : 0
@@ -166,7 +162,7 @@ class Grid: SKSpriteNode {
                     print("Direction: ", dir)
                 } else {
                     dir = nil
-                    player.color = .red
+                    playerNode.color = .red
                     print("Distance too small")
                 }
             }
@@ -175,12 +171,12 @@ class Grid: SKSpriteNode {
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first, movableNode != nil {
-            if let player = movableNode as? Player {
-                player.color = .red
+            if let playerNode = movableNode as? PlayerNode {
+                playerNode.color = .red
                 if dir != nil {
-                    if let position = positionWithinGrid(col: player.col, row: player.row, dir: dir!) {
-                        player.row = position.x
-                        player.col = position.y
+                    if let position = positionWithinGrid(col: playerNode.player.position.column, row: playerNode.player.position.row, dir: dir!) {
+                        playerNode.player.position.row = Int(position.x)
+                        playerNode.player.position.column = Int(position.y)
                         let newPosition = self.gridPosition(row: Int(position.x), col: Int(position.y))
                         self.delegate?.moveTo(gridPosition: newPosition)
                     }
