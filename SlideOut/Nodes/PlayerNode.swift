@@ -10,11 +10,15 @@ import SpriteKit
 import GameplayKit
 
 class PlayerNode: SKSpriteNode {
-    var player: Player!
+    var player: Square!
     
-    init(player: Player) {
+    var direction: UISwipeGestureRecognizer.Direction?
+    var collision: UISwipeGestureRecognizer.Direction?
+    var moving: Bool = false
+    
+    init(player: Square, size: CGSize) {
         self.player = player
-        super.init(texture: nil, color: UIColor().named(player.color ?? "red") ?? .red, size: CGSize(width: player.size, height: player.size))
+        super.init(texture: nil, color: UIColor().named(player.color ?? "red") ?? .red, size: size)
     }
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {

@@ -9,13 +9,12 @@
 import SpriteKit
 import GameplayKit
 
-class Block: SKSpriteNode {
+class BlockNode: SKSpriteNode {
+    var block: Square!
     
-    var row: CGFloat = 0.0
-    var col: CGFloat = 0.0
-    
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
+    init(block: Square, size: CGSize) {
+        self.block = block
+        super.init(texture: nil, color: UIColor().named(block.color ?? "red") ?? .red, size: size)
     }
     
     init(imageNamed: String) {

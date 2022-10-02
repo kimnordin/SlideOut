@@ -1,39 +1,107 @@
 [
     {
         "name": "First Level",
+        "squareSize": 50,
         "player": {
-            "size": 50.0,
-            "color": "Red",
+            "color": "red",
             "position": { "row": 1, "column": 1 }
         },
         "grid": {
-            "squareSize": 50,
             "rows": 8,
             "columns": 12
-        }
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "row": 1, "column": 8 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 1, "column": 8 }
+            }
+        ]
     },
     {
         "name": "Second Level",
+        "squareSize": 50,
         "player": {
-            "size": 50,
+            "color": "red",
             "position": { "row": 1, "column": 3 }
         },
         "grid": {
-            "squareSize": 50.0,
             "rows": 10,
             "columns": 14
-        }
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "row": 1, "column": 8 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 1, "column": 8 }
+            }
+        ]
     },
     {
         "name": "Third Level",
+        "squareSize": 20,
         "player": {
-            "size": 30,
+            "color": "red",
             "position": { "row": 12, "column": 7 }
         },
         "grid": {
-            "squareSize": 30.0,
             "rows": 17,
             "columns": 22
-        }
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "row": 2, "column": 19 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 8, "column": 19 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 8, "column": 7 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 1, "column": 8 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 5, "column": 9 }
+            },
+        ]
+    },
+    
+    {
+        "name": "Third Level",
+        "squareSize": 20,
+        "player": {
+            "color": "red",
+            "position": { "row": 1, "column": 0 }
+        },
+        "grid": {
+            "rows": 8,
+            "columns": 13
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "row": 1, "column": 4 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 4, "column": 3 }
+            },
+            {
+                "color": "yellow",
+                "position": { "row": 3, "column": 1 }
+            }
+        ]
     }
 ]

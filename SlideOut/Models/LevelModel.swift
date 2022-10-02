@@ -11,19 +11,19 @@ import Foundation
 // MARK: - LevelModel
 struct LevelModel: Codable {
     let name: String
-    let player: Player
+    let squareSize: Int
+    let player: Square
     let grid: Grid
+    let blocks: [Square]?
 }
 
 // MARK: - Grid
 struct Grid: Codable {
-    let squareSize: Double
     let rows, columns: Int
 }
 
-// MARK: - Player
-struct Player: Codable {
-    let size: Int
+// MARK: - Square
+struct Square: Codable {
     var color: String?
     var position: Position
 }
