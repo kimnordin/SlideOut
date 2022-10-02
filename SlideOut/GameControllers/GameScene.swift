@@ -35,7 +35,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     
     // MARK: Arrays
     var blocks = [Block]()
-    var walls = [Wall]()
     
     //MARK: Grid
     let grid = Grid(blockSize: 50.0, rows: 12, cols: 8)
@@ -61,37 +60,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
             grid.position = CGPoint (x:frame.midX, y:frame.midY)
             addChild(grid)
             
-            let gamePiece = player
-            gamePiece.setScale(1.0)
+            let playerGamePiece = player
+            playerGamePiece.setScale(1.0)
             player.row = 1
             player.col = 1
-            gamePiece.position = grid.gridPosition(row: 1, col: 1)
-            grid.addChild(gamePiece)
+            playerGamePiece.position = grid.gridPosition(row: 1, col: 1)
+            grid.addChild(playerGamePiece)
+            
+            let blockGamePiece = block
+            blockGamePiece.setScale(1.0)
+            block.row = 4
+            block.col = 4
+            blockGamePiece.position = grid.gridPosition(row: 4, col: 4)
+            grid.addChild(blockGamePiece)
         }
         
         self.physicsWorld.contactDelegate = self
-    }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        var playerBody: SKPhysicsBody
-        var otherBody: SKPhysicsBody
-        
-        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-            playerBody = contact.bodyA
-            otherBody = contact.bodyB
-        }
-        else {
-            playerBody = contact.bodyB
-            otherBody = contact.bodyA
-        }
-        
-        if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == enemyCategory {
-            self.run(SKAction.playSoundFileNamed("fail.wav", waitForCompletion: true))
-//            movePlayerToStart()
-            if let otherNode = otherBody.node {
-                removeEnemy(node: otherNode)
-            }
-        }
     }
     
     func moveTo(gridPosition: CGPoint) {

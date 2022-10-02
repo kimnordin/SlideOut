@@ -142,7 +142,6 @@ class Grid: SKSpriteNode {
                     let x = abs(xTouch/distance) > 0.4 ? Int(sign(Float(xTouch))) : 0
                     let y = abs(yTouch/distance) > 0.4 ? Int(sign(Float(yTouch))) : 0
                     
-                    var swiped = true
                     switch (x,y) {
                     case (0,1):
                         dir = .up
@@ -162,11 +161,11 @@ class Grid: SKSpriteNode {
                         dir = .downright
                     default:
                         dir = nil
-                        swiped = false
                         break
                     }
                     print("Direction: ", dir)
                 } else {
+                    dir = nil
                     player.color = .red
                     print("Distance too small")
                 }

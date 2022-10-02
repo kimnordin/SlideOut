@@ -1,7 +1,13 @@
 {
     "1": {
         
-        "name" : "First Level",
+        "name": "First Level",
+        "player": { "size": 50, "row": 1, "col": 2 },
+        "grid": {
+            "squareSize": 50,
+            "rows": 8,
+            "columns": 12
+        },
         "waves": [{"blocks" : [{ "type": "normal",
             "position": { "x": 1, "y": 3 }
         },
@@ -12,26 +18,20 @@
         }]
     },
     "2": {
-        
-        "name" : "Second Level",
+        "name": "Second Level",
+        "player": { "row": 1, "col": 2 },
+        "grid": {
+            "squareSize": 50,
+            "rows": 8,
+            "columns": 12
+        },
         "waves": [{"blocks" : [{ "type": "normal",
-            "position": { "x": 0, "y": 2 },
-            "route": [{ "x": 0, "y": 2 },
-                { "x": 1, "y": 2 },
-                { "x": 2, "y": 2 },
-                { "x": 3, "y": 2 },
-            { "x": 4, "y": 2 }],
-            "doesReverseRoute" : true },
+            "position": { "x": 1, "y": 3 }
+        },
         
         { "type": "normal",
-            "position": { "x": 4, "y": 4 },
-            "route": [{ "x": 4, "y": 4 },
-                { "x": 3, "y": 4 },
-                { "x": 2, "y": 4 },
-                { "x": 1, "y": 4 },
-            { "x": 0, "y": 4 }],
-            "doesReverseRoute" : true
-            
+            "position": { "x": 3, "y": 3 }
+        }]
         }]
     }
 }

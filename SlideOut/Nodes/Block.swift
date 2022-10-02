@@ -11,6 +11,9 @@ import GameplayKit
 
 class Block: SKSpriteNode {
     
+    var row: CGFloat = 0.0
+    var col: CGFloat = 0.0
+    
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
     }
