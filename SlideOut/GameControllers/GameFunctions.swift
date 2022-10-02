@@ -19,32 +19,6 @@ enum Direction {
     case downleft
 }
 
-extension PlayerNode {
-    func movePlayer(direction: Direction) {
-        if !self.hasActions() {
-            switch direction {
-            case .right:
-                let moveRightAction = SKAction.move(by: CGVector(dx: 1, dy: 0), duration: 0.005)
-                let repeatAction = SKAction.repeatForever(moveRightAction)
-                self.run(repeatAction)
-            case .left:
-                let moveLeftAction = SKAction.move(by: CGVector(dx: -1, dy: 0), duration: 0.005)
-                let repeatAction = SKAction.repeatForever(moveLeftAction)
-                self.run(repeatAction)
-            case .up:
-                let moveUpAction = SKAction.move(by: CGVector(dx: 0, dy: 1), duration: 0.005)
-                let repeatAction = SKAction.repeatForever(moveUpAction)
-                self.run(repeatAction)
-            case .down:
-                let moveDownAction = SKAction.move(by: CGVector(dx: 0, dy: -1), duration: 0.005)
-                let repeatAction = SKAction.repeatForever(moveDownAction)
-                self.run(repeatAction)
-            default: return
-            }
-        }
-    }
-}
-
 extension GameScene {
     func movePlayer(direction: UISwipeGestureRecognizer.Direction) {
         if direction != playerNode.collision {
