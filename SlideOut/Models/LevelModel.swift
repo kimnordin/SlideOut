@@ -21,7 +21,7 @@ struct LevelModel: Codable {
 
 // MARK: - Grid
 struct Grid: Codable {
-    let rows, columns: Int
+    let columns, rows: Int
 }
 
 // MARK: - Square
@@ -32,7 +32,7 @@ struct Square: Codable {
 
 // MARK: - Position
 struct Position: Codable {
-    var row, column: Int
+    var column, row: Int
 }
 
 typealias Levels = [LevelModel]

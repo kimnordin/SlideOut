@@ -21,7 +21,7 @@ class GridNode: SKSpriteNode {
     var squareSize: CGFloat!
 
     convenience init?(grid: Grid, squareSize: CGFloat) {
-        guard let texture = GridNode.gridTexture(squareSize: squareSize, rows: grid.rows, cols: grid.columns) else {
+        guard let texture = GridNode.gridTexture(squareSize: squareSize, cols: grid.columns, rows: grid.rows) else {
             return nil
         }
         self.init(texture: texture, color: SKColor.clear, size: texture.size())
@@ -29,39 +29,47 @@ class GridNode: SKSpriteNode {
         self.grid = grid
         self.squareSize = squareSize
     }
-
-    class func gridTexture(squareSize: CGFloat, rows: Int, cols: Int) -> SKTexture? {
+    
+    class func gridTexture(squareSize: CGFloat, cols: Int, rows: Int) -> SKTexture? {
         let size = CGSize(width: CGFloat(cols)*squareSize+1.0, height: CGFloat(rows)*squareSize+1.0)
         UIGraphicsBeginImageContext(size)
-
+        
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
         }
         let bezierPath = UIBezierPath()
         let offset:CGFloat = 0.5
-        // Draw vertical lines
-        for i in 0...rows {
-            let y = CGFloat(i)*squareSize + offset
-            bezierPath.move(to: CGPoint(x: 0, y: y))
-            bezierPath.addLine(to: CGPoint(x: size.width, y: y))
-        }
+        
         // Draw horizontal lines
         for i in 0...cols {
             let x = CGFloat(i)*squareSize + offset
             bezierPath.move(to: CGPoint(x: x, y: 0))
             bezierPath.addLine(to: CGPoint(x: x, y: size.height))
         }
+        // Draw vertical lines
+        for i in 0...rows {
+            let y = CGFloat(i)*squareSize + offset
+            bezierPath.move(to: CGPoint(x: 0, y: y))
+            bezierPath.addLine(to: CGPoint(x: size.width, y: y))
+        }
+        
         SKColor.white.setStroke()
         bezierPath.lineWidth = 1.0
         bezierPath.stroke()
         context.addPath(bezierPath.cgPath)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return SKTexture(image: image!)
     }
-
-    func gridPosition(row: Int, col: Int) -> CGPoint {
+    
+    /**
+     Returns the real position in a grid given a column and row
+     - parameter col: The current column position of the Player
+     - parameter row: The current row position of the Player
+     - returns CGPoint: The position in the grid
+     */
+    func gridPosition(col: Int, row: Int) -> CGPoint {
         let offset = squareSize / 2.0
         let x = CGFloat(grid.columns - col - 1) * squareSize - (squareSize * CGFloat(grid.columns)) / 2.0 + offset
         let y = CGFloat(row) * squareSize - (squareSize * CGFloat(grid.rows)) / 2.0 + offset
@@ -81,23 +89,22 @@ class GridNode: SKSpriteNode {
         switch dir {
         case .up:
             if y != 0 {
-                y = y-1
+                y = y - 1
             }
         case .down:
-            if y != col-1 {
-                y = y+1
+            if y != col - 1 {
+                y = y + 1
             }
         case .left:
             if x != 0 {
-                x = x-1
+                x = x - 1
             }
         case .right:
-            if x != row-1 {
-                x = x+1
+            if x != row - 1 {
+                x = x + 1
             }
         default: return nil
         }
-        
         return CGPoint(x: x, y: y)
     }
 }

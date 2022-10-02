@@ -45,7 +45,7 @@ extension GameScene {
         playerNode.physicsBody?.collisionBitMask = movableBlockCategory
         
         playerNode.setScale(1.0)
-        playerNode.position = gridNode.gridPosition(row: player.position.row, col: player.position.column)
+        playerNode.position = gridNode.gridPosition(col: player.position.column, row: player.position.row)
         gridNode.addChild(playerNode)
     }
     
@@ -62,7 +62,7 @@ extension GameScene {
         goalNode.physicsBody?.contactTestBitMask = playerCategory
         
         goalNode.setScale(1.0)
-        goalNode.position = gridNode.gridPosition(row: goal.position.row, col: goal.position.column)
+        goalNode.position = gridNode.gridPosition(col: goal.position.column, row: goal.position.row)
         gridNode.addChild(goalNode)
     }
     
@@ -75,7 +75,7 @@ extension GameScene {
                 newBlock.physicsBody?.isDynamic = false
                 newBlock.physicsBody?.categoryBitMask = blockCategory
                 newBlock.physicsBody?.restitution = 0
-                newBlock.position = gridNode.gridPosition(row: block.position.row, col: block.position.column)
+                newBlock.position = gridNode.gridPosition(col: block.position.column, row: block.position.row)
                 gridNode.addChild(newBlock)
             }
         }
@@ -89,7 +89,7 @@ extension GameScene {
                 newMovableBlock.physicsBody = SKPhysicsBody(rectangleOf: newMovableBlock.size)
                 newMovableBlock.physicsBody?.categoryBitMask = movableBlockCategory
                 newMovableBlock.physicsBody?.restitution = 0
-                newMovableBlock.position = gridNode.gridPosition(row: movableBlock.position.row, col: movableBlock.position.column)
+                newMovableBlock.position = gridNode.gridPosition(col: movableBlock.position.column, row: movableBlock.position.row)
                 movableBlockNodes.append(newMovableBlock)
                 gridNode.addChild(newMovableBlock)
             }
