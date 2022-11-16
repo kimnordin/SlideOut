@@ -20,7 +20,7 @@ class GridNode: SKSpriteNode {
     var squareSize: CGFloat!
 
     convenience init?(grid: Grid, squareSize: CGFloat) {
-        guard let texture = GridNode.gridTexture(squareSize: squareSize, cols: grid.columns, rows: grid.rows) else {
+        guard let texture = GridNode.gridTexture(squareSize: squareSize, x: grid.x, y: grid.y) else {
             return nil
         }
         self.init(texture: texture, color: SKColor.clear, size: texture.size())
@@ -29,8 +29,8 @@ class GridNode: SKSpriteNode {
         self.squareSize = squareSize
     }
     
-    class func gridTexture(squareSize: CGFloat, cols: Int, rows: Int) -> SKTexture? {
-        let size = CGSize(width: CGFloat(cols)*squareSize+1.0, height: CGFloat(rows)*squareSize+1.0)
+    class func gridTexture(squareSize: CGFloat, x: Int, y: Int) -> SKTexture? {
+        let size = CGSize(width: CGFloat(x)*squareSize+1.0, height: CGFloat(y)*squareSize+1.0)
         UIGraphicsBeginImageContext(size)
         
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -40,13 +40,13 @@ class GridNode: SKSpriteNode {
         let offset:CGFloat = 0.5
         
         // Draw horizontal lines
-        for i in 0...cols {
+        for i in 0...x {
             let x = CGFloat(i)*squareSize + offset
             bezierPath.move(to: CGPoint(x: x, y: 0))
             bezierPath.addLine(to: CGPoint(x: x, y: size.height))
         }
         // Draw vertical lines
-        for i in 0...rows {
+        for i in 0...y {
             let y = CGFloat(i)*squareSize + offset
             bezierPath.move(to: CGPoint(x: 0, y: y))
             bezierPath.addLine(to: CGPoint(x: size.width, y: y))
@@ -68,10 +68,10 @@ class GridNode: SKSpriteNode {
      - parameter row: The current row position of the Player
      - returns CGPoint: The position in the grid
      */
-    func gridPosition(col: Int, row: Int) -> CGPoint {
+    func gridPosition(x: Int, y: Int) -> CGPoint {
         let offset = squareSize / 2.0
-        let x = CGFloat(grid.columns - col - 1) * squareSize - (squareSize * CGFloat(grid.columns)) / 2.0 + offset
-        let y = CGFloat(row) * squareSize - (squareSize * CGFloat(grid.rows)) / 2.0 + offset
+        let x = CGFloat(x) * squareSize - (squareSize * CGFloat(grid.x)) / 2.0 + offset
+        let y = CGFloat(y) * squareSize - (squareSize * CGFloat(grid.y)) / 2.0 + offset
         return CGPoint(x: x, y: y)
     }
     
@@ -82,28 +82,28 @@ class GridNode: SKSpriteNode {
      - parameter dir: The swiped Direction, indicating where to move
      - returns CGPoint?: The new position to move to if it is within the bounds of the grid
      */
-    func positionWithinGrid(col: Int, row: Int, swipeDirection: UISwipeGestureRecognizer.Direction) -> CGPoint? {
-        var x = row
-        var y = col
+    func positionWithinGrid(x: Int, y: Int, swipeDirection: UISwipeGestureRecognizer.Direction) -> CGPoint? {
+        var _x = x
+        var _y = y
         switch swipeDirection {
         case .up:
             if y != 0 {
-                y = y - 1
+                _y = y - 1
             }
         case .down:
-            if y != col - 1 {
-                y = y + 1
+            if y != _y - 1 {
+                _y = y + 1
             }
         case .left:
             if x != 0 {
-                x = x - 1
+                _x = x - 1
             }
         case .right:
-            if x != row - 1 {
-                x = x + 1
+            if x != _x - 1 {
+                _x = x + 1
             }
         default: return nil
         }
-        return CGPoint(x: x, y: y)
+        return CGPoint(x: _x, y: _y)
     }
 }

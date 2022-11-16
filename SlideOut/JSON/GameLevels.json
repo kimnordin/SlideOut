@@ -4,32 +4,32 @@
         "squareSize": 40,
         "player": {
             "color": "red",
-            "position": { "column": 0, "row": 0, }
+            "position": { "x": 0, "y": 0, }
         },
         "goal": {
             "color": "green",
-            "position": { "column": 2, "row": 4 }
+            "position": { "x": 2, "y": 4 }
         },
         "grid": {
-            "rows": 5,
-            "columns": 5
+            "y": 5,
+            "x": 5
         },
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "column": 3, "row": 1 }
+                "position": { "x": 3, "y": 1 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 1, "row": 2 }
+                "position": { "x": 1, "y": 2 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 0, "row": 4 }
+                "position": { "x": 0, "y": 4 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 4, "row": 3, }
+                "position": { "x": 4, "y": 3, }
             }
         ]
     },
@@ -38,40 +38,40 @@
         "squareSize": 20,
         "player": {
             "color": "red",
-            "position": { "column": 0, "row": 1 }
+            "position": { "x": 0, "y": 1 }
         },
         "goal": {
             "color": "green",
-            "position": { "column": 4, "row": 7 }
+            "position": { "x": 4, "y": 7 }
         },
         "grid": {
-            "rows": 8,
-            "columns": 13
+            "y": 8,
+            "x": 13
         },
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "column": 4, "row": 1 }
+                "position": { "x": 4, "y": 1 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 3, "row": 4 }
+                "position": { "x": 3, "y": 4 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 1, "row": 3, }
+                "position": { "x": 1, "y": 3, }
             },
             {
                 "color": "yellow",
-                "position": { "column": 2, "row": 7, }
+                "position": { "x": 2, "y": 7, }
             },
             {
                 "color": "yellow",
-                "position": { "column": 11, "row": 6 }
+                "position": { "x": 11, "y": 6 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 10, "row": 3, }
+                "position": { "x": 10, "y": 3, }
             }
         ]
     },
@@ -80,34 +80,34 @@
         "squareSize": 20,
         "player": {
             "color": "red",
-            "position": { "column": 13, "row": 1, }
+            "position": { "x": 13, "y": 1, }
         },
         "goal": {
             "color": "green",
-            "position": { "column": 9, "row": 2 }
+            "position": { "x": 9, "y": 2 }
         },
         "grid": {
-            "rows": 10,
-            "columns": 15
+            "y": 10,
+            "x": 15
         },
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "column": 4, "row": 7 }
+                "position": { "x": 4, "y": 7 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 3, "row": 4 }
+                "position": { "x": 3, "y": 4 }
             },
             {
                 "color": "yellow",
-                "position": { "column": 3, "row": 1 }
+                "position": { "x": 3, "y": 1 }
             }
         ],
         "movableBlocks": [
             {
                 "color": "orange",
-                "position": { "column": 6, "row": 1 }
+                "position": { "x": 6, "y": 1 }
             }
         ]
     }
