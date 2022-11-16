@@ -17,7 +17,6 @@ class GridNode: SKSpriteNode {
     var delegate: GridDelegate!
     var grid: Grid!
     var movableNode: SKNode?
-    var dir: Direction?
     var squareSize: CGFloat!
 
     convenience init?(grid: Grid, squareSize: CGFloat) {
@@ -83,10 +82,10 @@ class GridNode: SKSpriteNode {
      - parameter dir: The swiped Direction, indicating where to move
      - returns CGPoint?: The new position to move to if it is within the bounds of the grid
      */
-    func positionWithinGrid(col: Int, row: Int, dir: Direction) -> CGPoint? {
+    func positionWithinGrid(col: Int, row: Int, swipeDirection: UISwipeGestureRecognizer.Direction) -> CGPoint? {
         var x = row
         var y = col
-        switch dir {
+        switch swipeDirection {
         case .up:
             if y != 0 {
                 y = y - 1

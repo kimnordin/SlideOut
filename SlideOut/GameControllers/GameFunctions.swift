@@ -8,17 +8,6 @@
 import SpriteKit
 import GameplayKit
 
-enum Direction {
-    case up
-    case down
-    case left
-    case right
-    case upleft
-    case upright
-    case downright
-    case downleft
-}
-
 extension GameScene {
     func movePlayer(direction: UISwipeGestureRecognizer.Direction) {
         if direction != playerNode.collision {
@@ -48,6 +37,12 @@ extension GameScene {
         }
     }
     
+    func stopPlayer(_ direction: UISwipeGestureRecognizer.Direction?) {
+        playerNode.collision = direction
+        playerNode.removeAllActions()
+        playerNode.moving = false
+    }
+    
     @objc func swipeRight(sender: UISwipeGestureRecognizer) {
         movePlayer(direction: .right)
     }
@@ -59,12 +54,6 @@ extension GameScene {
     }
     @objc func swipeDown(sender: UISwipeGestureRecognizer) {
         movePlayer(direction: .down)
-    }
-    
-    func stopPlayer(_ direction: UISwipeGestureRecognizer.Direction?) {
-        playerNode.collision = direction
-        playerNode.removeAllActions()
-        playerNode.moving = false
     }
     
     func movePlayerToStart() {
