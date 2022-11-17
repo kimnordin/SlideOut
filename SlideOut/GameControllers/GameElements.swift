@@ -24,7 +24,6 @@ extension GameScene {
     
     func initGrid() {
         let grid = currentLevelModel.grid
-        let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
         gridNode = GridNode(grid: grid, squareSize: CGFloat(currentLevelModel.squareSize))
         
         gridNode.delegate = self
@@ -37,13 +36,6 @@ extension GameScene {
         let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
         playerNode = PlayerNode(player: player, size: size)
         
-        playerNode.physicsBody = SKPhysicsBody(rectangleOf: playerNode.size)
-        playerNode.physicsBody?.allowsRotation = false
-        playerNode.physicsBody?.linearDamping = 0
-        playerNode.physicsBody?.categoryBitMask = playerCategory
-        playerNode.physicsBody?.contactTestBitMask = goalCategory | blockCategory
-        playerNode.physicsBody?.collisionBitMask = movableBlockCategory
-        
         playerNode.setScale(1.0)
         playerNode.position = gridNode.gridPosition(x: player.position.x, y: player.position.y)
         gridNode.addChild(playerNode)
@@ -53,13 +45,6 @@ extension GameScene {
         let goal = currentLevelModel.goal
         let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
         goalNode = GoalNode(goal: goal, size: size)
-        
-        let halfSize = CGSize(width: goalNode.size.width/2, height: goalNode.size.height/2)
-        goalNode.physicsBody = SKPhysicsBody(rectangleOf: halfSize)
-        goalNode.physicsBody?.allowsRotation = false
-        goalNode.physicsBody?.linearDamping = 0
-        goalNode.physicsBody?.categoryBitMask = goalCategory
-        goalNode.physicsBody?.contactTestBitMask = playerCategory
         
         goalNode.setScale(1.0)
         goalNode.position = gridNode.gridPosition(x: goal.position.x, y: goal.position.y)
@@ -71,10 +56,6 @@ extension GameScene {
             let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
             for block in blocks {
                 let newBlock = BlockNode(block: block, size: size)
-                newBlock.physicsBody = SKPhysicsBody(rectangleOf: newBlock.size)
-                newBlock.physicsBody?.isDynamic = false
-                newBlock.physicsBody?.categoryBitMask = blockCategory
-                newBlock.physicsBody?.restitution = 0
                 newBlock.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
                 gridNode.addChild(newBlock)
             }
@@ -86,9 +67,6 @@ extension GameScene {
             let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
             for movableBlock in movableBlocks {
                 let newMovableBlock = MovableBlockNode(movableBlock: movableBlock, size: size)
-                newMovableBlock.physicsBody = SKPhysicsBody(rectangleOf: newMovableBlock.size)
-                newMovableBlock.physicsBody?.categoryBitMask = movableBlockCategory
-                newMovableBlock.physicsBody?.restitution = 0
                 newMovableBlock.position = gridNode.gridPosition(x: movableBlock.position.x, y: movableBlock.position.y)
                 movableBlockNodes.append(newMovableBlock)
                 gridNode.addChild(newMovableBlock)

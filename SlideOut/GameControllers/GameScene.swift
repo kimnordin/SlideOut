@@ -36,16 +36,72 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
         }
     }
     
-    // MARK: Collision Categories
-    let playerCategory: UInt32 = 0x1 << 0 //1
-    let goalCategory: UInt32 = 0x1 << 1 //2
-    let blockCategory: UInt32 = 0x1 << 2 //4
-    let movableBlockCategory: UInt32 = 0x1 << 3 //8
-    
     override func didMove(to view: SKView) {
         initGame()
+    }
+    
+    func checkTiles(direction: UISwipeGestureRecognizer.Direction, closestCollision: (CGPoint, Int) -> ()) {
+        guard let player = playerNode.player else { return }
         
-        self.physicsWorld.contactDelegate = self
+        let blocks = currentLevelModel.blocks ?? []
+        var tilePositionDifference = 0
+        var gridPositionToMove = CGPoint(x: player.position.x, y: player.position.y)
+
+        switch direction {
+        case .up:
+            let negSameRowBlocks = blocks.filter({ $0.position.x == player.position.x && $0.position.y > player.position.y})
+            if let closestValue = negSameRowBlocks.min { abs($0.position.y - player.position.y) < abs($1.position.y - player.position.y) } {
+                gridPositionToMove = CGPoint(x: player.position.x, y: closestValue.position.y-1)
+                tilePositionDifference = closestValue.position.y - player.position.y
+
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            } else {
+                gridPositionToMove = CGPoint(x: player.position.x, y: currentLevelModel.grid.y)
+                tilePositionDifference = currentLevelModel.grid.y - player.position.y
+                
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            }
+        case .down:
+            let negSameRowBlocks = blocks.filter({ $0.position.x == player.position.x && $0.position.y < player.position.y})
+            if let closestValue = negSameRowBlocks.min { abs($0.position.y - player.position.y) < abs($1.position.y - player.position.y) } {
+                gridPositionToMove = CGPoint(x: player.position.x, y: closestValue.position.y+1)
+                tilePositionDifference = player.position.y - closestValue.position.y
+
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            } else {
+                gridPositionToMove = CGPoint(x: player.position.x, y: -1)
+                tilePositionDifference = player.position.y
+                
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            }
+        case .left:
+            let negSameRowBlocks = blocks.filter({ $0.position.y == player.position.y && $0.position.x < player.position.x})
+            if let closestValue = negSameRowBlocks.min { abs($0.position.x - player.position.x) < abs($1.position.x - player.position.x) } {
+                gridPositionToMove = CGPoint(x: closestValue.position.x+1, y: player.position.y)
+                tilePositionDifference = player.position.x - closestValue.position.x
+                
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            } else {
+                gridPositionToMove = CGPoint(x: -1, y: player.position.y)
+                tilePositionDifference = player.position.x
+                
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            }
+        case .right:
+            let negSameRowBlocks = blocks.filter({ $0.position.y == player.position.y && $0.position.x > player.position.x})
+            if let closestValue = negSameRowBlocks.min { abs($0.position.x - player.position.x) < abs($1.position.x - player.position.x) } {
+                gridPositionToMove = CGPoint(x: closestValue.position.x-1, y: player.position.y)
+                tilePositionDifference = closestValue.position.x - player.position.x
+                
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            } else {
+                gridPositionToMove = CGPoint(x: currentLevelModel.grid.x, y: player.position.y)
+                tilePositionDifference = currentLevelModel.grid.x - player.position.x
+                
+                closestCollision(gridPositionToMove, tilePositionDifference)
+            }
+        default: return
+        }
     }
     
     func initGame() {
@@ -63,59 +119,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, GridDelegate {
     
     func clearGame() {
         remove(node: gridNode)
-    }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        var playerBody: SKPhysicsBody
-        var otherBody: SKPhysicsBody
-
-        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-            playerBody = contact.bodyA
-            otherBody = contact.bodyB
-        }
-        else {
-            playerBody = contact.bodyB
-            otherBody = contact.bodyA
-        }
-
-        if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == goalCategory {
-            currentLevel += 1
-            clearGame()
-            initGame()
-        }
-        
-        if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == blockCategory {
-            if let player = playerBody.node as? PlayerNode,
-                let block = otherBody.node as? BlockNode  {
-                switch player.direction {
-                case UISwipeGestureRecognizer.Direction.up:
-                    if player.position.y < block.position.y && player.position.x < block.position.x + 2 && player.position.x > block.position.x - 2 {
-                        stopPlayer(player.direction)
-                    }
-                case UISwipeGestureRecognizer.Direction.down:
-                    if player.position.y > block.position.y && player.position.x < block.position.x + 2 && player.position.x > block.position.x - 2 {
-                        stopPlayer(player.direction)
-                    }
-                case UISwipeGestureRecognizer.Direction.left:
-                    if player.position.x > block.position.x && player.position.y < block.position.y + 2 && player.position.y > block.position.y - 2 {
-                        stopPlayer(player.direction)
-                    }
-                case UISwipeGestureRecognizer.Direction.right:
-                    if player.position.x < block.position.x && player.position.y < block.position.y + 2 && player.position.y > block.position.y - 2 {
-                        stopPlayer(player.direction)
-                    }
-                default: return
-                }
-            }
-        }
-    }
-    
-    override func update(_ currentTime: TimeInterval) {
-        if playerNode.position.y > gridNode.size.height / 2 - playerNode.size.height / 2 || playerNode.position.y < -gridNode.size.height / 2 + playerNode.size.height/2
-        || playerNode.position.x > gridNode.size.width / 2 - playerNode.size.width / 2 || playerNode.position.x < -gridNode.size.width / 2 + playerNode.size.width / 2 {
-            movePlayerToStart()
-            moveMovableBlocksToStart()
-        }
     }
     
     func moveTo(gridPosition: CGPoint) {
