@@ -31,7 +31,7 @@ struct Square: Codable {
 }
 
 // MARK: - Position
-struct Position: Codable {
+struct Position: Codable, Equatable {
     var x, y: Int
 }
 

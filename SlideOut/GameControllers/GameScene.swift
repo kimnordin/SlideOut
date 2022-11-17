@@ -13,7 +13,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Game Properties
     private var levels: Levels!
     var currentLevelModel: LevelModel!
-    var currentLevel = 1
+    var currentLevel = 0
+    var playerMoveSpeed = 0.1
     
     // MARK: HUD
     var levelLabel: SKLabelNode?
@@ -55,5 +56,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func clearGame() {
         remove(node: gridNode)
+    }
+    
+    func nextLevel() {
+        currentLevel += 1
+        clearGame()
+        initGame()
     }
 }
