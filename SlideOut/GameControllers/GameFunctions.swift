@@ -20,7 +20,7 @@ extension GameScene {
                 
                 let realPosition = gridNode.gridPosition(x: Int(closestCollision.x), y: Int(closestCollision.y))
                 let duration = Double(positionDifference) * 0.2
-                let moveAction = SKAction.move(to: realPosition, duration: duration)
+                let moveAction = SKAction.move(to: realPosition, duration: duration + 0.1)
                 
                 playerNode.run(moveAction) { [self] in
                     stopPlayer()
@@ -99,7 +99,7 @@ extension GameScene {
                 closestCollision(gridPositionToMove, tilePositionDifference)
             } else {
                 gridPositionToMove = CGPoint(x: player.position.x, y: -1)
-                tilePositionDifference = player.position.y
+                tilePositionDifference = player.position.y+1
                 
                 closestCollision(gridPositionToMove, tilePositionDifference)
             }
@@ -112,7 +112,7 @@ extension GameScene {
                 closestCollision(gridPositionToMove, tilePositionDifference)
             } else {
                 gridPositionToMove = CGPoint(x: -1, y: player.position.y)
-                tilePositionDifference = player.position.x
+                tilePositionDifference = player.position.x+1
                 
                 closestCollision(gridPositionToMove, tilePositionDifference)
             }
