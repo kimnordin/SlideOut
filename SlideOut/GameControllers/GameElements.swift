@@ -24,16 +24,15 @@ extension GameScene {
     
     func initGrid() {
         let grid = currentLevelModel.grid
-        gridNode = GridNode(grid: grid, squareSize: CGFloat(currentLevelModel.squareSize))
+        gridNode = GridNode(grid: grid, squareSize: CGFloat(grid.squareSize))
         
-        gridNode.delegate = self
         gridNode.position = CGPoint (x:frame.midX, y:frame.midY)
         addChild(gridNode)
     }
     
     func initPlayer() {
         let player = currentLevelModel.player
-        let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
+        let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
         playerNode = PlayerNode(player: player, size: size)
         
         playerNode.setScale(1.0)
@@ -43,7 +42,7 @@ extension GameScene {
     
     func initGoal() {
         let goal = currentLevelModel.goal
-        let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
+        let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
         goalNode = GoalNode(goal: goal, size: size)
         
         goalNode.setScale(1.0)
@@ -53,7 +52,7 @@ extension GameScene {
     
     func initBlocks() {
         if let blocks = currentLevelModel.blocks {
-            let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
+            let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
             for block in blocks {
                 let newBlock = BlockNode(block: block, size: size)
                 newBlock.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
@@ -64,7 +63,7 @@ extension GameScene {
     
     func initMovableBlocks() {
         if let movableBlocks = currentLevelModel.movableBlocks {
-            let size = CGSize(width: currentLevelModel.squareSize, height: currentLevelModel.squareSize)
+            let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
             for movableBlock in movableBlocks {
                 let newMovableBlock = MovableBlockNode(movableBlock: movableBlock, size: size)
                 newMovableBlock.position = gridNode.gridPosition(x: movableBlock.position.x, y: movableBlock.position.y)

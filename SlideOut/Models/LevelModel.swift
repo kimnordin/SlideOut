@@ -11,7 +11,6 @@ import Foundation
 // MARK: - LevelModel
 struct LevelModel: Codable {
     let name: String
-    let squareSize: Int
     let player: Square
     let goal: Square
     let grid: Grid
@@ -21,7 +20,8 @@ struct LevelModel: Codable {
 
 // MARK: - Grid
 struct Grid: Codable {
-    let x, y: Int
+    let width, height: Int
+    var squareSize: CGFloat!
 }
 
 // MARK: - Square

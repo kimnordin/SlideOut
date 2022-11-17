@@ -9,24 +9,15 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-protocol GridDelegate {
-    func moveTo(gridPosition: CGPoint)
-}
-
 class GridNode: SKSpriteNode {
-    var delegate: GridDelegate!
     var grid: Grid!
-    var movableNode: SKNode?
-    var squareSize: CGFloat!
 
-    convenience init?(grid: Grid, squareSize: CGFloat) {
-        guard let texture = GridNode.gridTexture(squareSize: squareSize, x: grid.x, y: grid.y) else {
-            return nil
-        }
-        self.init(texture: texture, color: SKColor.clear, size: texture.size())
+    convenience init(grid: Grid, squareSize: CGFloat) {
+        let texture = GridNode.gridTexture(squareSize: squareSize, x: grid.width, y: grid.height)
+        let displaySize = UIScreen.main.bounds
+        self.init(texture: texture, color: SKColor.clear, size: texture?.size() ?? CGSize(width: displaySize.width, height: displaySize.height))
         self.isUserInteractionEnabled = true
         self.grid = grid
-        self.squareSize = squareSize
     }
     
     class func gridTexture(squareSize: CGFloat, x: Int, y: Int) -> SKTexture? {
@@ -69,9 +60,9 @@ class GridNode: SKSpriteNode {
      - returns CGPoint: The position in the grid
      */
     func gridPosition(x: Int, y: Int) -> CGPoint {
-        let offset = squareSize / 2.0
-        let x = CGFloat(x) * squareSize - (squareSize * CGFloat(grid.x)) / 2.0 + offset
-        let y = CGFloat(y) * squareSize - (squareSize * CGFloat(grid.y)) / 2.0 + offset
+        let offset = grid.squareSize / 2.0
+        let x = CGFloat(x) * grid.squareSize - (grid.squareSize * CGFloat(grid.width)) / 2.0 + offset
+        let y = CGFloat(y) * grid.squareSize - (grid.squareSize * CGFloat(grid.height)) / 2.0 + offset
         return CGPoint(x: x, y: y)
     }
     
