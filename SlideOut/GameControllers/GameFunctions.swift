@@ -10,37 +10,57 @@ import GameplayKit
 
 extension GameScene {
     func movePlayer(direction: UISwipeGestureRecognizer.Direction) {
-        if direction != playerNode.collision {
-            if playerNode.moving == false {
-                playerNode.moving = true
-                playerNode.direction = direction
-                switch direction {
-                case .right:
-                    let moveRightAction = SKAction.move(by: CGVector(dx: 1, dy: 0), duration: 0.005)
-                    let repeatAction = SKAction.repeatForever(moveRightAction)
-                    playerNode.run(repeatAction)
-                case .left:
-                    let moveLeftAction = SKAction.move(by: CGVector(dx: -1, dy: 0), duration: 0.005)
-                    let repeatAction = SKAction.repeatForever(moveLeftAction)
-                    playerNode.run(repeatAction)
-                case .up:
-                    let moveUpAction = SKAction.move(by: CGVector(dx: 0, dy: 1), duration: 0.005)
-                    let repeatAction = SKAction.repeatForever(moveUpAction)
-                    playerNode.run(repeatAction)
-                case .down:
-                    let moveDownAction = SKAction.move(by: CGVector(dx: 0, dy: -1), duration: 0.005)
-                    let repeatAction = SKAction.repeatForever(moveDownAction)
-                    playerNode.run(repeatAction)
-                default: return
+        if playerNode.moving == false {
+            playerNode.moving = true
+            playerNode.direction = direction
+            
+            checkTiles(direction: direction) { closestCollision, positionDifference, isGoal in
+                playerNode.player.position.x = Int(closestCollision.x)
+                playerNode.player.position.y = Int(closestCollision.y)
+                
+                let realPosition = gridNode.gridPosition(x: Int(closestCollision.x), y: Int(closestCollision.y))
+                let duration = Double(positionDifference) * playerMoveSpeed
+                let moveAction = SKAction.move(to: realPosition, duration: duration)
+                
+                playerNode.run(moveAction) { [self] in
+                    stopPlayer()
+                    checkIsGoal(isGoal)
+                    checkOutOfBounds(playerNode.player.position)
                 }
             }
         }
     }
     
-    func stopPlayer(_ direction: UISwipeGestureRecognizer.Direction?) {
-        playerNode.collision = direction
-        playerNode.removeAllActions()
+    func stopPlayer() {
+        playerNode.direction = nil
         playerNode.moving = false
+    }
+    
+    func movePlayerToStart() {
+        playerNode.direction = nil
+        playerNode.moving = false
+        remove(node: playerNode)
+        initPlayer()
+    }
+    
+    func moveMovableBlocksToStart() {
+        for movableBlock in movableBlockNodes {
+            remove(node: movableBlock)
+        }
+        initMovableBlocks()
+    }
+    
+    func checkIsGoal(_ goal: Bool) {
+        if goal {
+            nextLevel()
+        }
+    }
+    
+    func checkOutOfBounds(_ position: Position) {
+        if position.x > gridNode.grid.width-1 || position.x < 0 ||
+            position.y > gridNode.grid.height-1 || position.y < 0 {
+            movePlayerToStart()
+        }
     }
     
     @objc func swipeRight(sender: UISwipeGestureRecognizer) {
@@ -56,20 +76,77 @@ extension GameScene {
         movePlayer(direction: .down)
     }
     
-    func movePlayerToStart() {
-        playerNode.collision = nil
-        playerNode.direction = nil
-        playerNode.moving = false
-        playerNode.removeAllActions()
-        remove(node: playerNode)
-        initPlayer()
-    }
-    
-    func moveMovableBlocksToStart() {
-        for movableBlock in movableBlockNodes {
-            remove(node: movableBlock)
+    func checkTiles(direction: UISwipeGestureRecognizer.Direction, closestCollision: (CGPoint, Int, Bool) -> ()) {
+        guard let player = playerNode.player else { return }
+        
+        var blocks = currentLevelModel.blocks ?? []
+        blocks.append(goalNode.goal)
+        var tilePositionDifference = 0
+        var gridPositionToMove = CGPoint(x: player.position.x, y: player.position.y)
+
+        switch direction {
+        case .up:
+            let negSameRowBlocks = blocks.filter({ $0.position.x == player.position.x && $0.position.y > player.position.y})
+            
+            if let closestValue = negSameRowBlocks.min(by: { abs($0.position.y - player.position.y) < abs($1.position.y - player.position.y) }) {
+                gridPositionToMove = CGPoint(x: player.position.x, y: closestValue.position.y-1)
+                tilePositionDifference = closestValue.position.y - player.position.y
+
+                let isGoal = closestValue.position == goalNode.goal.position
+                closestCollision(gridPositionToMove, tilePositionDifference, isGoal)
+            } else {
+                gridPositionToMove = CGPoint(x: player.position.x, y: gridNode.grid.height)
+                tilePositionDifference = gridNode.grid.height - player.position.y
+                
+                closestCollision(gridPositionToMove, tilePositionDifference, false)
+            }
+        case .down:
+            let negSameRowBlocks = blocks.filter({ $0.position.x == player.position.x && $0.position.y < player.position.y})
+            
+            if let closestValue = negSameRowBlocks.min(by: { abs($0.position.y - player.position.y) < abs($1.position.y - player.position.y) }) {
+                gridPositionToMove = CGPoint(x: player.position.x, y: closestValue.position.y+1)
+                tilePositionDifference = player.position.y - closestValue.position.y
+
+                let isGoal = closestValue.position == goalNode.goal.position
+                closestCollision(gridPositionToMove, tilePositionDifference, isGoal)
+            } else {
+                gridPositionToMove = CGPoint(x: player.position.x, y: -1)
+                tilePositionDifference = player.position.y+1
+                
+                closestCollision(gridPositionToMove, tilePositionDifference, false)
+            }
+        case .left:
+            let negSameRowBlocks = blocks.filter({ $0.position.y == player.position.y && $0.position.x < player.position.x})
+            
+            if let closestValue = negSameRowBlocks.min(by: { abs($0.position.x - player.position.x) < abs($1.position.x - player.position.x) }) {
+                gridPositionToMove = CGPoint(x: closestValue.position.x+1, y: player.position.y)
+                tilePositionDifference = player.position.x - closestValue.position.x
+                
+                let isGoal = closestValue.position == goalNode.goal.position
+                closestCollision(gridPositionToMove, tilePositionDifference, isGoal)
+            } else {
+                gridPositionToMove = CGPoint(x: -1, y: player.position.y)
+                tilePositionDifference = player.position.x+1
+                
+                closestCollision(gridPositionToMove, tilePositionDifference, false)
+            }
+        case .right:
+            let negSameRowBlocks = blocks.filter({ $0.position.y == player.position.y && $0.position.x > player.position.x})
+            
+            if let closestValue = negSameRowBlocks.min(by: { abs($0.position.x - player.position.x) < abs($1.position.x - player.position.x) }) {
+                gridPositionToMove = CGPoint(x: closestValue.position.x-1, y: player.position.y)
+                tilePositionDifference = closestValue.position.x - player.position.x
+                
+                let isGoal = closestValue.position == goalNode.goal.position
+                closestCollision(gridPositionToMove, tilePositionDifference, isGoal)
+            } else {
+                gridPositionToMove = CGPoint(x: gridNode.grid.width, y: player.position.y)
+                tilePositionDifference = gridNode.grid.width - player.position.x
+                
+                closestCollision(gridPositionToMove, tilePositionDifference, false)
+            }
+        default: return
         }
-        initMovableBlocks()
     }
     
     func remove(node: SKNode) {

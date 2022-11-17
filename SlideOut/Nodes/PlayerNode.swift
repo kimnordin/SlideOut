@@ -13,7 +13,6 @@ class PlayerNode: SKSpriteNode {
     var player: Square!
     
     var direction: UISwipeGestureRecognizer.Direction?
-    var collision: UISwipeGestureRecognizer.Direction?
     var moving: Bool = false
     
     init(player: Square, size: CGSize) {

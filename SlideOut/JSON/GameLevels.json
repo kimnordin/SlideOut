@@ -1,7 +1,6 @@
 [
     {
         "name": "First Level",
-        "squareSize": 40,
         "player": {
             "color": "red",
             "position": { "x": 0, "y": 0, }
@@ -11,8 +10,9 @@
             "position": { "x": 2, "y": 4 }
         },
         "grid": {
-            "y": 5,
-            "x": 5
+            "width": 5,
+            "height": 5,
+            "squareSize": 40,
         },
         "blocks": [
             {
@@ -35,7 +35,6 @@
     },
     {
         "name": "Second Level",
-        "squareSize": 20,
         "player": {
             "color": "red",
             "position": { "x": 0, "y": 1 }
@@ -45,8 +44,9 @@
             "position": { "x": 4, "y": 7 }
         },
         "grid": {
-            "y": 8,
-            "x": 13
+            "width": 13,
+            "height": 8,
+            "squareSize": 20,
         },
         "blocks": [
             {
@@ -87,8 +87,9 @@
             "position": { "x": 9, "y": 2 }
         },
         "grid": {
-            "y": 10,
-            "x": 15
+            "width": 15,
+            "height": 10,
+            "squareSize": 20,
         },
         "blocks": [
             {
