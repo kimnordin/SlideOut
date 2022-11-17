@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F2194EC225E57E7700CF7DB6 /* GameLevels.json in Resources */ = {isa = PBXBuildFile; fileRef = F2194EB925E5751500CF7DB6 /* GameLevels.json */; };
+		F24534EB2926DAB7008C8793 /* GridModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EA2926DAB7008C8793 /* GridModel.swift */; };
+		F24534ED2926DAC9008C8793 /* SquareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EC2926DAC9008C8793 /* SquareModel.swift */; };
+		F24534EF2926DAE5008C8793 /* PositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EE2926DAE5008C8793 /* PositionModel.swift */; };
 		F29D1A6728E9BD7C00D67843 /* LevelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6628E9BD7C00D67843 /* LevelModel.swift */; };
 		F29D1A6B28EA217000D67843 /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6A28EA217000D67843 /* GoalNode.swift */; };
 		F29D1A6D28EA294700D67843 /* MovableBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */; };
@@ -27,6 +30,9 @@
 
 /* Begin PBXFileReference section */
 		F2194EB925E5751500CF7DB6 /* GameLevels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameLevels.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		F24534EA2926DAB7008C8793 /* GridModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridModel.swift; sourceTree = "<group>"; };
+		F24534EC2926DAC9008C8793 /* SquareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareModel.swift; sourceTree = "<group>"; };
+		F24534EE2926DAE5008C8793 /* PositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionModel.swift; sourceTree = "<group>"; };
 		F29D1A6628E9BD7C00D67843 /* LevelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModel.swift; sourceTree = "<group>"; };
 		F29D1A6A28EA217000D67843 /* GoalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
 		F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableBlockNode.swift; sourceTree = "<group>"; };
@@ -69,6 +75,9 @@
 			isa = PBXGroup;
 			children = (
 				F29D1A6628E9BD7C00D67843 /* LevelModel.swift */,
+				F24534EA2926DAB7008C8793 /* GridModel.swift */,
+				F24534EC2926DAC9008C8793 /* SquareModel.swift */,
+				F24534EE2926DAE5008C8793 /* PositionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -216,9 +225,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F24534EB2926DAB7008C8793 /* GridModel.swift in Sources */,
 				F29D1A6B28EA217000D67843 /* GoalNode.swift in Sources */,
 				F29D1A6728E9BD7C00D67843 /* LevelModel.swift in Sources */,
 				F2EBAAF425D951680060D34E /* GameScene.swift in Sources */,
+				F24534ED2926DAC9008C8793 /* SquareModel.swift in Sources */,
 				F2EBAAEB25D951590060D34E /* BlockNode.swift in Sources */,
 				F29D1A6D28EA294700D67843 /* MovableBlockNode.swift in Sources */,
 				F2EBAAF925D9517A0060D34E /* GridNode.swift in Sources */,
@@ -226,6 +237,7 @@
 				F2EBAAEC25D951590060D34E /* PlayerNode.swift in Sources */,
 				F2EBAAD225D950D00060D34E /* AppDelegate.swift in Sources */,
 				F2DF34B028E9B40700F53303 /* Extensions.swift in Sources */,
+				F24534EF2926DAE5008C8793 /* PositionModel.swift in Sources */,
 				F2EBAAF625D951680060D34E /* GameElements.swift in Sources */,
 				F2EBAAF525D951680060D34E /* GameFunctions.swift in Sources */,
 			);

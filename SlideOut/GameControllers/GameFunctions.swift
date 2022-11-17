@@ -76,6 +76,14 @@ extension GameScene {
         movePlayer(direction: .down)
     }
     
+    /**
+     Checks the tiles around the player in a certain direction and returnins the closest collision
+     - parameter direction: The direction to check for a closest collision
+     - returns closestCollision: A completion returning a:
+        - CGPoint: x and y position of the closest obstacle
+        - Int: Grid tiles between the player and the obstacle
+        - Bool: Whether the obstacle is the goal or not
+     */
     func checkTiles(direction: UISwipeGestureRecognizer.Direction, closestCollision: (CGPoint, Int, Bool) -> ()) {
         guard let player = playerNode.player else { return }
         
