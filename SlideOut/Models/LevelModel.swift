@@ -18,21 +18,8 @@ struct LevelModel: Codable {
     let movableBlocks: [Square]?
 }
 
-// MARK: - Grid
-struct Grid: Codable {
-    let width, height: Int
-    var squareSize: CGFloat!
-}
-
-// MARK: - Square
-struct Square: Codable {
-    var color: String?
-    var position: Position
-}
-
-// MARK: - Position
-struct Position: Codable, Equatable {
-    var x, y: Int
+enum SquareType: String, Codable {
+    case player, goal, block, movableBlock
 }
 
 typealias Levels = [LevelModel]

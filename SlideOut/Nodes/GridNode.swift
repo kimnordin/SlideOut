@@ -19,7 +19,16 @@ class GridNode: SKSpriteNode {
         self.isUserInteractionEnabled = true
         self.grid = grid
     }
-    
+}
+
+extension GridNode {
+    /**
+     Draws a Grid with lines.
+     - parameter squareSize: The size of the squares in the grid
+     - parameter x: The width of the grid
+     - parameter y: The height of the grid
+     - returns SKTexture: An image of the grid
+     */
     class func gridTexture(squareSize: CGFloat, x: Int, y: Int) -> SKTexture? {
         let size = CGSize(width: CGFloat(x)*squareSize+1.0, height: CGFloat(y)*squareSize+1.0)
         UIGraphicsBeginImageContext(size)
@@ -54,47 +63,15 @@ class GridNode: SKSpriteNode {
     }
     
     /**
-     Returns the real position in a grid given a column and row
-     - parameter col: The current column position of the Player
-     - parameter row: The current row position of the Player
-     - returns CGPoint: The position in the grid
+     Returns the real position in a grid given an x and y position.
+     - parameter x: The current x position of the Player
+     - parameter y: The current y position of the Player
+     - returns CGPoint: The real position in the grid
      */
     func gridPosition(x: Int, y: Int) -> CGPoint {
         let offset = grid.squareSize / 2.0
         let x = CGFloat(x) * grid.squareSize - (grid.squareSize * CGFloat(grid.width)) / 2.0 + offset
         let y = CGFloat(y) * grid.squareSize - (grid.squareSize * CGFloat(grid.height)) / 2.0 + offset
         return CGPoint(x: x, y: y)
-    }
-    
-    /**
-     Returns a new position if it is within the bounds of the grid, given a current position and a direction to move in
-     - parameter col: The current column position of the Player
-     - parameter row: The current row position of the Player
-     - parameter dir: The swiped Direction, indicating where to move
-     - returns CGPoint?: The new position to move to if it is within the bounds of the grid
-     */
-    func positionWithinGrid(x: Int, y: Int, swipeDirection: UISwipeGestureRecognizer.Direction) -> CGPoint? {
-        var _x = x
-        var _y = y
-        switch swipeDirection {
-        case .up:
-            if y != 0 {
-                _y = y - 1
-            }
-        case .down:
-            if y != _y - 1 {
-                _y = y + 1
-            }
-        case .left:
-            if x != 0 {
-                _x = x - 1
-            }
-        case .right:
-            if x != _x - 1 {
-                _x = x + 1
-            }
-        default: return nil
-        }
-        return CGPoint(x: _x, y: _y)
     }
 }

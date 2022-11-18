@@ -3,33 +3,39 @@
         "name": "First Level",
         "player": {
             "color": "red",
-            "position": { "x": 0, "y": 0, }
+            "position": { "x": 0, "y": 0, },
+            "type": "player"
         },
         "goal": {
             "color": "green",
-            "position": { "x": 2, "y": 4 }
+            "position": { "x": 2, "y": 4 },
+            "type": "goal"
         },
         "grid": {
             "width": 5,
             "height": 5,
-            "squareSize": 40,
+            "squareSize": 40
         },
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "x": 3, "y": 1 }
+                "position": { "x": 3, "y": 1 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 1, "y": 2 }
+                "position": { "x": 1, "y": 2 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 0, "y": 4 }
+                "position": { "x": 0, "y": 4 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 4, "y": 3, }
+                "position": { "x": 4, "y": 3, },
+                "type": "block"
             }
         ]
     },
@@ -37,41 +43,49 @@
         "name": "Second Level",
         "player": {
             "color": "red",
-            "position": { "x": 0, "y": 1 }
+            "position": { "x": 0, "y": 1 },
+            "type": "player"
         },
         "goal": {
             "color": "green",
-            "position": { "x": 4, "y": 7 }
+            "position": { "x": 4, "y": 7 },
+            "type": "goal"
         },
         "grid": {
             "width": 13,
             "height": 8,
-            "squareSize": 20,
+            "squareSize": 20
         },
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "x": 4, "y": 1 }
+                "position": { "x": 4, "y": 1 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 3, "y": 4 }
+                "position": { "x": 3, "y": 4 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 1, "y": 3, }
+                "position": { "x": 1, "y": 3, },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 2, "y": 7, }
+                "position": { "x": 2, "y": 7, },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 11, "y": 6 }
+                "position": { "x": 11, "y": 6 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 10, "y": 3, }
+                "position": { "x": 10, "y": 3, },
+                "type": "block"
             }
         ]
     },
@@ -80,36 +94,85 @@
         "squareSize": 20,
         "player": {
             "color": "red",
-            "position": { "x": 13, "y": 1, }
+            "position": { "x": 13, "y": 2, },
+            "type": "player"
         },
         "goal": {
             "color": "green",
-            "position": { "x": 9, "y": 2 }
+            "position": { "x": 9, "y": 3 },
+            "type": "goal"
         },
         "grid": {
             "width": 15,
-            "height": 10,
-            "squareSize": 20,
+            "height": 11,
+            "squareSize": 20
         },
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "x": 4, "y": 7 }
+                "position": { "x": 14, "y": 2 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 3, "y": 4 }
+                "position": { "x": 13, "y": 5 },
+                "type": "block"
             },
             {
                 "color": "yellow",
-                "position": { "x": 3, "y": 1 }
+                "position": { "x": 9, "y": 4 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 8, "y": 10 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 12, "y": 9 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 11, "y": 0 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 8, "y": 1 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 4, "y": 8 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 0, "y": 7 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 3, "y": 5 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 1, "y": 3 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 3, "y": 2 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 10, "y": 7 },
+                "type": "block"
             }
         ],
-        "movableBlocks": [
-            {
-                "color": "orange",
-                "position": { "x": 6, "y": 1 }
-            }
-        ]
     }
 ]
