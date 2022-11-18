@@ -107,6 +107,7 @@ extension GameScene {
      */
     func positionToMove(_ originSquare: Square, direction: UISwipeGestureRecognizer.Direction) -> Position {
         var position = originSquare.position
+        
         switch direction {
         case .up:
             position.y = playerNode.player.position.y + 1
@@ -131,7 +132,7 @@ extension GameScene {
      */
     func checkForCollision(_ originSquare: Square, distance: Int, direction: UISwipeGestureRecognizer.Direction, blocks: [Square]) -> Square? {
         let squarePosition = originSquare.position
-        print("origin position: ", squarePosition)
+
         switch direction {
         case .up:
             if let block = blocks.first(where: { $0.position.y == squarePosition.y + distance &&
