@@ -91,7 +91,6 @@
     },
     {
         "name": "Third Level",
-        "squareSize": 20,
         "player": {
             "color": "red",
             "position": { "x": 13, "y": 2, },
@@ -173,6 +172,43 @@
                 "position": { "x": 10, "y": 7 },
                 "type": "block"
             }
+        ]
+    },
+    {
+        "name": "Fourth Level",
+        "player": {
+            "color": "red",
+            "position": { "x": 2, "y": 2, },
+            "type": "player"
+        },
+        "goal": {
+            "color": "green",
+            "position": { "x": 9, "y": 7 },
+            "type": "goal"
+        },
+        "grid": {
+            "width": 12,
+            "height": 8,
+            "squareSize": 30
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "x": 11, "y": 2 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 11, "y": 2 },
+                "type": "block"
+            }
         ],
+        "movableBlocks": [
+            {
+                "color": "orange",
+                "position": { "x": 8, "y": 2 },
+                "type": "movableBlock"
+            }
+        ]
     }
 ]
