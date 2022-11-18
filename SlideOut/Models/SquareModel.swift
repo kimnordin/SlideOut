@@ -11,4 +11,5 @@ import Foundation
 struct Square: Codable {
     var color: String?
     var position: Position
+    var type: SquareType
 }

@@ -74,6 +74,10 @@ extension GameScene {
     }
     
     func createHUD() {
+        victoryDisplayNode = self.childNode(withName: "victory") as? SKLabelNode
+        victoryDisplayNode?.text = "Winner!!!"
+        victoryDisplayNode?.isHidden = true
+        
         levelLabel = self.childNode(withName: "level") as? SKLabelNode
         levelLabel?.text = currentLevelModel.name
     }

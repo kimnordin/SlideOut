@@ -18,4 +18,8 @@ struct LevelModel: Codable {
     let movableBlocks: [Square]?
 }
 
+enum SquareType: String, Codable {
+    case player, goal, block, movableBlock
+}
+
 typealias Levels = [LevelModel]

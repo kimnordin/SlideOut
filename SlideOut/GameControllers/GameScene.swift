@@ -14,7 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var levels: Levels!
     var currentLevelModel: LevelModel!
     var currentLevel = 0
-    var playerMoveSpeed = 0.1
+    var playerMoveSpeed = 0.2
     
     // MARK: HUD
     var levelLabel: SKLabelNode?
@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerNode: PlayerNode!
     var gridNode: GridNode!
     var goalNode: GoalNode!
+    var victoryDisplayNode: SKLabelNode?
     var movableBlockNodes = [MovableBlockNode]()
     
     // MARK: Sound
@@ -59,8 +60,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func nextLevel() {
-        currentLevel += 1
-        clearGame()
-        initGame()
+        if currentLevel < levels.count-1 {
+            currentLevel += 1
+            clearGame()
+            initGame()
+        } else {
+            victoryDisplayNode?.isHidden = false
+        }
     }
 }
