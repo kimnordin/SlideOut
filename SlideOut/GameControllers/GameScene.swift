@@ -26,18 +26,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var victoryDisplayNode: SKLabelNode?
     var allBlocks = [Square]()
     
-    // MARK: Sound
-    let moveSound = SKAction.playSoundFileNamed("move.wav", waitForCompletion: false)
-    var backgroundNoise: SKAudioNode!
-    
-    //MARK: Grid
-    private var toPosition: CGPoint = CGPoint(x: 0, y: 0) {
-        didSet {
-            let moveAction = SKAction.move(to: toPosition, duration: 0.2)
-            playerNode.run(moveAction)
-        }
-    }
-    
     override func didMove(to view: SKView) {
         initGame()
     }
