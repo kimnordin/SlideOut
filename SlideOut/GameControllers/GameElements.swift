@@ -1,6 +1,6 @@
 //
 //  GameElements.swift
-//  DodgeFall
+//  SlideOut
 //
 //  Created by Kim Nordin on 2021-02-02.
 //
@@ -48,6 +48,8 @@ extension GameScene {
         goalNode.setScale(1.0)
         goalNode.position = gridNode.gridPosition(x: goal.position.x, y: goal.position.y)
         gridNode.addChild(goalNode)
+        
+        allBlocks.append(goal)
     }
     
     func initBlocks() {
@@ -58,6 +60,7 @@ extension GameScene {
                 newBlock.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
                 gridNode.addChild(newBlock)
             }
+            allBlocks.append(contentsOf: blocks)
         }
     }
     
@@ -67,9 +70,9 @@ extension GameScene {
             for movableBlock in movableBlocks {
                 let newMovableBlock = MovableBlockNode(movableBlock: movableBlock, size: size)
                 newMovableBlock.position = gridNode.gridPosition(x: movableBlock.position.x, y: movableBlock.position.y)
-                movableBlockNodes.append(newMovableBlock)
                 gridNode.addChild(newMovableBlock)
             }
+            allBlocks.append(contentsOf: movableBlocks)
         }
     }
     

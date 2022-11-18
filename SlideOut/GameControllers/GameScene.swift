@@ -1,6 +1,6 @@
 //
 //  GameScene.swift
-//  DodgeFall
+//  SlideOut
 //
 //  Created by Kim Nordin on 2021-02-02.
 //
@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gridNode: GridNode!
     var goalNode: GoalNode!
     var victoryDisplayNode: SKLabelNode?
-    var movableBlockNodes = [MovableBlockNode]()
+    var allBlocks = [Square]()
     
     // MARK: Sound
     let moveSound = SKAction.playSoundFileNamed("move.wav", waitForCompletion: false)
@@ -56,6 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func clearGame() {
+        allBlocks = []
         remove(node: gridNode)
     }
     

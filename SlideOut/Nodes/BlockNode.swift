@@ -1,6 +1,6 @@
 //
-//  Block.swift
-//  Slider
+//  BlockNode.swift
+//  SlideOut
 //
 //  Created by Kim Nordin on 2020-09-06.
 //  Copyright © 2020 Kim Nordin. All rights reserved.
