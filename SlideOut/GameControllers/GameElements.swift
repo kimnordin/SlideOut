@@ -64,14 +64,14 @@ extension GameScene {
         }
     }
     
-    func initMovableBlocks() {
-        if let movableBlocks = currentLevelModel.movableBlocks {
+    func initMovableNodes() {
+        if let movableBlockNodes = currentLevelModel.movableBlocks {
             let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
-            for movableBlock in movableBlocks {
-                let newMovableBlock = MovableBlockNode(square: movableBlock, size: size)
-                newMovableBlock.position = gridNode.gridPosition(x: movableBlock.position.x, y: movableBlock.position.y)
-                gridNode.addChild(newMovableBlock)
-                collisionNodes.append(newMovableBlock)
+            for movableNode in movableBlockNodes {
+                let newMovableNode = MovableBlockNode(square: movableNode, size: size)
+                newMovableNode.position = gridNode.gridPosition(x: movableNode.position.x, y: movableNode.position.y)
+                gridNode.addChild(newMovableNode)
+                collisionNodes.append(newMovableNode)
             }
         }
     }
@@ -83,6 +83,20 @@ extension GameScene {
         
         levelLabel = self.childNode(withName: "level") as? SKLabelNode
         levelLabel?.text = currentLevelModel.name
+    }
+    
+    func restartLevel() {
+        movePlayerToStart()
+        moveMovableNodesToStart()
+    }
+    
+    func remove(node: SKNode) {
+        node.removeFromParent()
+    }
+
+    func endGame(){
+        let gameScene = GameScene(size: self.size)
+        self.view!.presentScene(gameScene)
     }
     
     func addActions() {

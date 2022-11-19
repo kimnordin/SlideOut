@@ -40,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initGoal()
         initPlayer()
         initBlocks()
-        initMovableBlocks()
+        initMovableNodes()
         addActions()
         createHUD()
     }
