@@ -12,14 +12,12 @@
 		F24534ED2926DAC9008C8793 /* SquareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EC2926DAC9008C8793 /* SquareModel.swift */; };
 		F24534EF2926DAE5008C8793 /* PositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EE2926DAE5008C8793 /* PositionModel.swift */; };
 		F29D1A6728E9BD7C00D67843 /* LevelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6628E9BD7C00D67843 /* LevelModel.swift */; };
-		F29D1A6B28EA217000D67843 /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6A28EA217000D67843 /* GoalNode.swift */; };
-		F29D1A6D28EA294700D67843 /* MovableBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */; };
+		F2A98A5729292A9800FE7910 /* SquareNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A98A5629292A9800FE7910 /* SquareNode.swift */; };
 		F2DF34B028E9B40700F53303 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF34AF28E9B40700F53303 /* Extensions.swift */; };
 		F2EBAAD225D950D00060D34E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EBAAD125D950D00060D34E /* AppDelegate.swift */; };
 		F2EBAAD425D950D00060D34E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2EBAAD325D950D00060D34E /* GameScene.sks */; };
 		F2EBAADD25D950D00060D34E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2EBAADB25D950D00060D34E /* Main.storyboard */; };
 		F2EBAADF25D950D10060D34E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2EBAADE25D950D10060D34E /* Assets.xcassets */; };
-		F2EBAAEB25D951590060D34E /* BlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EBAAE825D951590060D34E /* BlockNode.swift */; };
 		F2EBAAEC25D951590060D34E /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EBAAE925D951590060D34E /* PlayerNode.swift */; };
 		F2EBAAF425D951680060D34E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EBAAF125D951680060D34E /* GameScene.swift */; };
 		F2EBAAF525D951680060D34E /* GameFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EBAAF225D951680060D34E /* GameFunctions.swift */; };
@@ -34,8 +32,7 @@
 		F24534EC2926DAC9008C8793 /* SquareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareModel.swift; sourceTree = "<group>"; };
 		F24534EE2926DAE5008C8793 /* PositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionModel.swift; sourceTree = "<group>"; };
 		F29D1A6628E9BD7C00D67843 /* LevelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModel.swift; sourceTree = "<group>"; };
-		F29D1A6A28EA217000D67843 /* GoalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
-		F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableBlockNode.swift; sourceTree = "<group>"; };
+		F2A98A5629292A9800FE7910 /* SquareNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareNode.swift; sourceTree = "<group>"; };
 		F2DF34AF28E9B40700F53303 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F2EBAACE25D950D00060D34E /* SlideOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2EBAAD125D950D00060D34E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +40,6 @@
 		F2EBAADC25D950D00060D34E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2EBAADE25D950D10060D34E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2EBAAE025D950D10060D34E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2EBAAE825D951590060D34E /* BlockNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockNode.swift; sourceTree = "<group>"; };
 		F2EBAAE925D951590060D34E /* PlayerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
 		F2EBAAF125D951680060D34E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F2EBAAF225D951680060D34E /* GameFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFunctions.swift; sourceTree = "<group>"; };
@@ -135,11 +131,9 @@
 		F2EBAAE725D951590060D34E /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				F2A98A5629292A9800FE7910 /* SquareNode.swift */,
 				F2EBAAE925D951590060D34E /* PlayerNode.swift */,
-				F29D1A6A28EA217000D67843 /* GoalNode.swift */,
-				F2EBAAE825D951590060D34E /* BlockNode.swift */,
 				F2EBAAF825D9517A0060D34E /* GridNode.swift */,
-				F29D1A6C28EA294700D67843 /* MovableBlockNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -226,12 +220,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F24534EB2926DAB7008C8793 /* GridModel.swift in Sources */,
-				F29D1A6B28EA217000D67843 /* GoalNode.swift in Sources */,
 				F29D1A6728E9BD7C00D67843 /* LevelModel.swift in Sources */,
+				F2A98A5729292A9800FE7910 /* SquareNode.swift in Sources */,
 				F2EBAAF425D951680060D34E /* GameScene.swift in Sources */,
 				F24534ED2926DAC9008C8793 /* SquareModel.swift in Sources */,
-				F2EBAAEB25D951590060D34E /* BlockNode.swift in Sources */,
-				F29D1A6D28EA294700D67843 /* MovableBlockNode.swift in Sources */,
 				F2EBAAF925D9517A0060D34E /* GridNode.swift in Sources */,
 				F2EBAAFC25D9535E0060D34E /* GameViewController.swift in Sources */,
 				F2EBAAEC25D951590060D34E /* PlayerNode.swift in Sources */,

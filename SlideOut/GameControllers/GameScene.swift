@@ -22,11 +22,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: Nodes
     var playerNode: PlayerNode!
     var gridNode: GridNode!
-    var goalNode: GoalNode!
+    var goalNode: SquareNode!
     var victoryDisplayNode: SKLabelNode?
     
     // MARK: Colliders
-    var collisionSquares = [Square]()
+    var collisionNodes = [SquareNode]()
     
     override func didMove(to view: SKView) {
         initGame()
@@ -46,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func clearGame() {
-        collisionSquares = []
+        collisionNodes = []
         remove(node: gridNode)
     }
     
