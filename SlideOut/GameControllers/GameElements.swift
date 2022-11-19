@@ -33,7 +33,7 @@ extension GameScene {
     func initPlayer() {
         let player = currentLevelModel.player
         let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
-        playerNode = PlayerNode(player: player, size: size)
+        playerNode = PlayerNode(square: player, size: size)
         
         playerNode.setScale(1.0)
         playerNode.position = gridNode.gridPosition(x: player.position.x, y: player.position.y)
@@ -43,24 +43,24 @@ extension GameScene {
     func initGoal() {
         let goal = currentLevelModel.goal
         let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
-        goalNode = GoalNode(goal: goal, size: size)
+        goalNode = SquareNode(square: goal, size: size)
         
         goalNode.setScale(1.0)
         goalNode.position = gridNode.gridPosition(x: goal.position.x, y: goal.position.y)
         gridNode.addChild(goalNode)
         
-        collisionSquares.append(goal)
+        collisionNodes.append(goalNode)
     }
     
     func initBlocks() {
         if let blocks = currentLevelModel.blocks {
             let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
             for block in blocks {
-                let newBlock = BlockNode(block: block, size: size)
+                let newBlock = SquareNode(square: block, size: size)
                 newBlock.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
                 gridNode.addChild(newBlock)
+                collisionNodes.append(newBlock)
             }
-            collisionSquares.append(contentsOf: blocks)
         }
     }
     
@@ -68,11 +68,11 @@ extension GameScene {
         if let movableBlocks = currentLevelModel.movableBlocks {
             let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
             for movableBlock in movableBlocks {
-                let newMovableBlock = MovableBlockNode(movableBlock: movableBlock, size: size)
+                let newMovableBlock = SquareNode(square: movableBlock, size: size)
                 newMovableBlock.position = gridNode.gridPosition(x: movableBlock.position.x, y: movableBlock.position.y)
                 gridNode.addChild(newMovableBlock)
+                collisionNodes.append(newMovableBlock)
             }
-            collisionSquares.append(contentsOf: movableBlocks)
         }
     }
     

@@ -12,7 +12,7 @@ extension GameScene {
     func movePlayer(_ direction: UISwipeGestureRecognizer.Direction) {
         if !playerNode.moving {
             playerNode.moving = true
-            checkCollisionBeforeMoving(playerNode.player, direction: direction, squares: collisionSquares)
+            checkCollisionBeforeMoving(playerNode, direction: direction, nodes: collisionNodes)
         }
     }
     
@@ -40,21 +40,19 @@ extension GameScene {
     }
     
     /**
-     Returns a Square with an updated position given a square to move, and a direction.
+     Moves a node and updates its position given a direction.
      - parameter square: The square to update.
      - parameter direction: The direction to move in.
-     - returns: Closure containing the updated square.
+     - returns: Closure confirming that the action completed.
      */
-    private func moveSquareAction(_ originSquare: Square, direction: UISwipeGestureRecognizer.Direction, updatedSquare: @escaping (Square) -> ()) {
-        
-        let newPosition = positionToMove(originSquare, direction: direction)
-        var newSquare = originSquare
-        newSquare.position = newPosition
+    private func moveSquareAction(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, finished: @escaping () -> ()) {
+        let newPosition = positionToMove(node, direction: direction)
+        node.square.position = newPosition
 
         let realPosition = gridNode.gridPosition(x: newPosition.x, y: newPosition.y)
         let moveAction = SKAction.move(to: realPosition, duration: playerMoveSpeed)
-        playerNode.run(moveAction) {
-            updatedSquare(newSquare)
+        node.run(moveAction) {
+            finished()
         }
     }
     
@@ -73,18 +71,17 @@ extension GameScene {
     }
     
     /**
-     Moves a certain Square depending on it's `type` in a given direction.
-     - parameter square: The position in the grid (x, y) to check.
+     Moves a node depending on it's `type` in a given direction.
+     - parameter node: The node to move.
      - parameter direction: The direction to move in.
      - returns: Whether the position is within the bounds of the grid or not.
      */
-    func moveSquare(_ square: Square, direction: UISwipeGestureRecognizer.Direction, squares: [Square]) {
-        switch square.type {
+    func moveNode(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) {
+        switch node.square.type {
         case .player:
-            if !isOutOfBounds(square.position, grid: gridNode.grid) {
-                moveSquareAction(square, direction: direction) { [self] updatedSquare in
-                    playerNode.player = updatedSquare
-                    checkCollisionBeforeMoving(updatedSquare, direction: direction, squares: squares)
+            if !isOutOfBounds(node.square.position, grid: gridNode.grid) {
+                moveSquareAction(node, direction: direction) { [self] in
+                    checkCollisionBeforeMoving(node, direction: direction, nodes: nodes)
                 }
             }  else {
                 movePlayerToStart()
@@ -94,32 +91,32 @@ extension GameScene {
     }
     
     /**
-     Check for a collision around a square in a given direction, running an action conforming to the type of collision that was made.
-     - parameter square: The square to check around.
+     Check for a collision around a node in a given direction, running an action conforming to the type of collision that was made.
+     - parameter node: The node to check around.
      - parameter direction: The direction to check for a collision.
      - parameter squares: The squares to consider as colliders.
      */
-    private func checkCollisionBeforeMoving(_ square: Square, direction: UISwipeGestureRecognizer.Direction, squares: [Square]) {
-        let collidedSquare = squareCollision(square, distance: 1, direction: direction, squares: squares)
+    private func checkCollisionBeforeMoving(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) {
+        let collidedNode = nodeCollision(node, distance: 1, direction: direction, nodes: nodes)
         
-        switch collidedSquare?.type {
+        switch collidedNode?.square.type {
         case .block:
             stopPlayer()
         case .goal:
             nextLevel()
         default: // No Collision
-            moveSquare(square, direction: direction, squares: squares)
+            moveNode(node, direction: direction, nodes: nodes)
         }
     }
     
     /**
-     Returns the updated position to move to, based on a squares current position.
-     - parameter square: The square to update the position of.
+     Returns the updated position to move to, based on a nodes current position.
+     - parameter node: The node to update the position of.
      - parameter direction: The direction to move in.
      - returns: The updated position.
      */
-    private func positionToMove(_ square: Square, direction: UISwipeGestureRecognizer.Direction) -> Position {
-        var position = square.position
+    private func positionToMove(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction) -> Position {
+        var position = node.square.position
         
         switch direction {
         case .up:
@@ -136,36 +133,36 @@ extension GameScene {
     }
     
     /**
-     Checks for a collision around a ``Square`` given a distance and direction, returning the square it collided with.
-     - parameter square: The square to check for surrounding collisions.
-     - parameter distance: The number of squares to check.
+     Checks for a collision around a ``SquareNode`` given a distance and direction, returning the node it collided with.
+     - parameter node: The node to check for surrounding collisions.
+     - parameter distance: The number of nodes to check.
      - parameter direction: The direction to check for a collision.
-     - parameter squares: The squares to consider as colliding obstacles.
-     - returns: The square that was collided with, or `nil` if no collision was made.
+     - parameter squares: The nodes to consider as colliding obstacles.
+     - returns: The node that was collided with, or `nil` if no collision was made.
      */
-    private func squareCollision(_ square: Square, distance: Int, direction: UISwipeGestureRecognizer.Direction, squares: [Square]) -> Square? {
-        let squarePosition = square.position
+    private func nodeCollision(_ node: SquareNode, distance: Int, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) -> SquareNode? {
+        let squarePosition = node.square.position
 
         switch direction {
         case .up:
-            if let matchingSquare = squares.first(where: { $0.position.y == squarePosition.y + distance &&
-                $0.position.x == squarePosition.x }) {
-                return matchingSquare
+            if let matchingNode = nodes.first(where: { $0.square.position.y == squarePosition.y + distance &&
+                $0.square.position.x == squarePosition.x }) {
+                return matchingNode
             }
         case .down:
-            if let matchingSquare = squares.first(where: { $0.position.y == squarePosition.y - distance &&
-                $0.position.x == squarePosition.x }) {
-                return matchingSquare
+            if let matchingNode = nodes.first(where: { $0.square.position.y == squarePosition.y - distance &&
+                $0.square.position.x == squarePosition.x }) {
+                return matchingNode
             }
         case .left:
-            if let matchingSquare = squares.first(where: { $0.position.x == squarePosition.x - distance &&
-                $0.position.y == squarePosition.y }) {
-                return matchingSquare
+            if let matchingNode = nodes.first(where: { $0.square.position.x == squarePosition.x - distance &&
+                $0.square.position.y == squarePosition.y }) {
+                return matchingNode
             }
         case .right:
-            if let matchingSquare = squares.first(where: { $0.position.x == squarePosition.x + distance &&
-                $0.position.y == squarePosition.y }) {
-                return matchingSquare
+            if let matchingNode = nodes.first(where: { $0.square.position.x == squarePosition.x + distance &&
+                $0.square.position.y == squarePosition.y }) {
+                return matchingNode
             }
         default: break
         }
