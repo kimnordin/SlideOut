@@ -38,6 +38,8 @@ extension GameScene {
         playerNode.setScale(1.0)
         playerNode.position = gridNode.gridPosition(x: player.position.x, y: player.position.y)
         gridNode.addChild(playerNode)
+        
+        allBlocks.append(player)
     }
     
     func initGoal() {
