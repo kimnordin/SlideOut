@@ -24,7 +24,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gridNode: GridNode!
     var goalNode: GoalNode!
     var victoryDisplayNode: SKLabelNode?
-    var allBlocks = [Square]()
+    
+    // MARK: Colliders
+    var collisionSquares = [Square]()
     
     override func didMove(to view: SKView) {
         initGame()
@@ -44,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func clearGame() {
-        allBlocks = []
+        collisionSquares = []
         remove(node: gridNode)
     }
     
