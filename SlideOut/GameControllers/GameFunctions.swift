@@ -87,6 +87,8 @@ extension GameScene {
             }
         } else if node.square.type == .player {
             movePlayerToStart()
+        } else if node.square.type == .movableBlock {
+            remove(node: node)
         }
     }
     
