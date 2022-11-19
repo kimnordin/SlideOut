@@ -16,8 +16,12 @@ extension GameScene {
         }
     }
     
-    func stopPlayer() {
-        playerNode.moving = false
+    func stopNode(_ node: SquareNode) {
+        if let playerNode = node as? PlayerNode {
+            playerNode.moving = false
+        } else if let movableNode = node as? MovableBlockNode {
+            movableNode.moving = false
+        }
     }
     
     func movePlayerToStart() {
@@ -41,7 +45,7 @@ extension GameScene {
     
     /**
      Moves a node and updates its position given a direction.
-     - parameter square: The square to update.
+     - parameter node: The node to update.
      - parameter direction: The direction to move in.
      - returns: Closure confirming that the action completed.
      */
@@ -74,19 +78,15 @@ extension GameScene {
      Moves a node depending on it's `type` in a given direction.
      - parameter node: The node to move.
      - parameter direction: The direction to move in.
-     - returns: Whether the position is within the bounds of the grid or not.
+     - parameter nodes: The nodes to consider as colliders.
      */
     func moveNode(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) {
-        switch node.square.type {
-        case .player:
-            if !isOutOfBounds(node.square.position, grid: gridNode.grid) {
-                moveSquareAction(node, direction: direction) { [self] in
-                    checkCollisionBeforeMoving(node, direction: direction, nodes: nodes)
-                }
-            }  else {
-                movePlayerToStart()
+        if !isOutOfBounds(node.square.position, grid: gridNode.grid) {
+            moveSquareAction(node, direction: direction) { [self] in
+                checkCollisionBeforeMoving(node, direction: direction, nodes: nodes)
             }
-        default: return
+        } else if node.square.type == .player {
+            movePlayerToStart()
         }
     }
     
@@ -94,16 +94,22 @@ extension GameScene {
      Check for a collision around a node in a given direction, running an action conforming to the type of collision that was made.
      - parameter node: The node to check around.
      - parameter direction: The direction to check for a collision.
-     - parameter squares: The squares to consider as colliders.
+     - parameter nodes: The nodes to consider as colliders.
      */
     private func checkCollisionBeforeMoving(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) {
         let collidedNode = nodeCollision(node, distance: 1, direction: direction, nodes: nodes)
         
-        switch collidedNode?.square.type {
-        case .block:
-            stopPlayer()
-        case .goal:
+        switch (node.square.type, collidedNode?.square.type) {
+        case (.player, .block):
+            stopNode(node)
+        case (.player, .goal):
             nextLevel()
+        case (.player, .movableBlock):
+            stopNode(node)
+            guard let collidedNode = collidedNode else { return }
+            checkCollisionBeforeMoving(collidedNode, direction: direction, nodes: nodes)
+        case (.movableBlock, .block):
+            stopNode(node)
         default: // No Collision
             moveNode(node, direction: direction, nodes: nodes)
         }
@@ -137,7 +143,7 @@ extension GameScene {
      - parameter node: The node to check for surrounding collisions.
      - parameter distance: The number of nodes to check.
      - parameter direction: The direction to check for a collision.
-     - parameter squares: The nodes to consider as colliding obstacles.
+     - parameter nodes: The nodes to consider as colliders.
      - returns: The node that was collided with, or `nil` if no collision was made.
      */
     private func nodeCollision(_ node: SquareNode, distance: Int, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) -> SquareNode? {
