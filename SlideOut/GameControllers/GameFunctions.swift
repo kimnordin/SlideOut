@@ -12,7 +12,7 @@ extension GameScene {
     func movePlayer(_ direction: UISwipeGestureRecognizer.Direction) {
         if !playerNode.moving {
             playerNode.moving = true
-            checkCollisionBeforeMoving(playerNode.player, direction: direction, blocks: allBlocks)
+            checkCollisionBeforeMoving(playerNode.player, direction: direction, squares: collisionSquares)
         }
     }
     
@@ -40,18 +40,21 @@ extension GameScene {
     }
     
     /**
-     Move the Player to a new position given a direction.
-     - parameter direction: The direction to move.
-     - returns: Closure confirming that the move action completed.
+     Returns a Square with an updated position given a square to move, and a direction.
+     - parameter square: The square to update.
+     - parameter direction: The direction to move in.
+     - returns: Closure containing the updated square.
      */
-    private func movePlayerAction(direction: UISwipeGestureRecognizer.Direction, finished: @escaping () -> ()) {
-        let newPosition = positionToMove(playerNode.player, direction: direction)
-        playerNode.player.position = newPosition
+    private func moveSquareAction(_ originSquare: Square, direction: UISwipeGestureRecognizer.Direction, updatedSquare: @escaping (Square) -> ()) {
         
+        let newPosition = positionToMove(originSquare, direction: direction)
+        var newSquare = originSquare
+        newSquare.position = newPosition
+
         let realPosition = gridNode.gridPosition(x: newPosition.x, y: newPosition.y)
         let moveAction = SKAction.move(to: realPosition, duration: playerMoveSpeed)
         playerNode.run(moveAction) {
-            finished()
+            updatedSquare(newSquare)
         }
     }
     
@@ -70,13 +73,34 @@ extension GameScene {
     }
     
     /**
-     Check for a collision around a square in a given direction, running an action conforming to the type of collision that was made.
-     - parameter originSquare: The square to check around.
-     - parameter direction: The direction to check for a collision.
-     - parameter blocks: The blocks to consider as colliders.
+     Moves a certain Square depending on it's `type` in a given direction.
+     - parameter square: The position in the grid (x, y) to check.
+     - parameter direction: The direction to move in.
+     - returns: Whether the position is within the bounds of the grid or not.
      */
-    private func checkCollisionBeforeMoving(_ originSquare: Square, direction: UISwipeGestureRecognizer.Direction, blocks: [Square]) {
-        let collidedSquare = squareCollision(playerNode.player, distance: 1, direction: direction, blocks: blocks)
+    func moveSquare(_ square: Square, direction: UISwipeGestureRecognizer.Direction, squares: [Square]) {
+        switch square.type {
+        case .player:
+            if !isOutOfBounds(square.position, grid: gridNode.grid) {
+                moveSquareAction(square, direction: direction) { [self] updatedSquare in
+                    playerNode.player = updatedSquare
+                    checkCollisionBeforeMoving(updatedSquare, direction: direction, squares: squares)
+                }
+            }  else {
+                movePlayerToStart()
+            }
+        default: return
+        }
+    }
+    
+    /**
+     Check for a collision around a square in a given direction, running an action conforming to the type of collision that was made.
+     - parameter square: The square to check around.
+     - parameter direction: The direction to check for a collision.
+     - parameter squares: The squares to consider as colliders.
+     */
+    private func checkCollisionBeforeMoving(_ square: Square, direction: UISwipeGestureRecognizer.Direction, squares: [Square]) {
+        let collidedSquare = squareCollision(square, distance: 1, direction: direction, squares: squares)
         
         switch collidedSquare?.type {
         case .block:
@@ -84,24 +108,18 @@ extension GameScene {
         case .goal:
             nextLevel()
         default: // No Collision
-            movePlayerAction(direction: direction) { [self] in
-                if isOutOfBounds(playerNode.player.position, grid: gridNode.grid) {
-                    movePlayerToStart()
-                } else {
-                    checkCollisionBeforeMoving(playerNode.player, direction: direction, blocks: blocks)
-                }
-            }
+            moveSquare(square, direction: direction, squares: squares)
         }
     }
     
     /**
      Returns the updated position to move to, based on a squares current position.
-     - parameter originSquare: The square to update the position of.
-     - parameter direction: The desired direction to move in.
+     - parameter square: The square to update the position of.
+     - parameter direction: The direction to move in.
      - returns: The updated position.
      */
-    private func positionToMove(_ originSquare: Square, direction: UISwipeGestureRecognizer.Direction) -> Position {
-        var position = originSquare.position
+    private func positionToMove(_ square: Square, direction: UISwipeGestureRecognizer.Direction) -> Position {
+        var position = square.position
         
         switch direction {
         case .up:
@@ -119,35 +137,35 @@ extension GameScene {
     
     /**
      Checks for a collision around a ``Square`` given a distance and direction, returning the square it collided with.
-     - parameter originSquare: The square to check for surrounding collisions.
+     - parameter square: The square to check for surrounding collisions.
      - parameter distance: The number of squares to check.
      - parameter direction: The direction to check for a collision.
-     - parameter blocks: The blocks to consider as colliding obstacles.
+     - parameter squares: The squares to consider as colliding obstacles.
      - returns: The square that was collided with, or `nil` if no collision was made.
      */
-    private func squareCollision(_ originSquare: Square, distance: Int, direction: UISwipeGestureRecognizer.Direction, blocks: [Square]) -> Square? {
-        let squarePosition = originSquare.position
+    private func squareCollision(_ square: Square, distance: Int, direction: UISwipeGestureRecognizer.Direction, squares: [Square]) -> Square? {
+        let squarePosition = square.position
 
         switch direction {
         case .up:
-            if let block = blocks.first(where: { $0.position.y == squarePosition.y + distance &&
+            if let matchingSquare = squares.first(where: { $0.position.y == squarePosition.y + distance &&
                 $0.position.x == squarePosition.x }) {
-                return block
+                return matchingSquare
             }
         case .down:
-            if let block = blocks.first(where: { $0.position.y == squarePosition.y - distance &&
+            if let matchingSquare = squares.first(where: { $0.position.y == squarePosition.y - distance &&
                 $0.position.x == squarePosition.x }) {
-                return block
+                return matchingSquare
             }
         case .left:
-            if let block = blocks.first(where: { $0.position.x == squarePosition.x - distance &&
+            if let matchingSquare = squares.first(where: { $0.position.x == squarePosition.x - distance &&
                 $0.position.y == squarePosition.y }) {
-                return block
+                return matchingSquare
             }
         case .right:
-            if let block = blocks.first(where: { $0.position.x == squarePosition.x + distance &&
+            if let matchingSquare = squares.first(where: { $0.position.x == squarePosition.x + distance &&
                 $0.position.y == squarePosition.y }) {
-                return block
+                return matchingSquare
             }
         default: break
         }

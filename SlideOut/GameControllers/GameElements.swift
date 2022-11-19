@@ -38,8 +38,6 @@ extension GameScene {
         playerNode.setScale(1.0)
         playerNode.position = gridNode.gridPosition(x: player.position.x, y: player.position.y)
         gridNode.addChild(playerNode)
-        
-        allBlocks.append(player)
     }
     
     func initGoal() {
@@ -51,7 +49,7 @@ extension GameScene {
         goalNode.position = gridNode.gridPosition(x: goal.position.x, y: goal.position.y)
         gridNode.addChild(goalNode)
         
-        allBlocks.append(goal)
+        collisionSquares.append(goal)
     }
     
     func initBlocks() {
@@ -62,7 +60,7 @@ extension GameScene {
                 newBlock.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
                 gridNode.addChild(newBlock)
             }
-            allBlocks.append(contentsOf: blocks)
+            collisionSquares.append(contentsOf: blocks)
         }
     }
     
@@ -74,7 +72,7 @@ extension GameScene {
                 newMovableBlock.position = gridNode.gridPosition(x: movableBlock.position.x, y: movableBlock.position.y)
                 gridNode.addChild(newMovableBlock)
             }
-            allBlocks.append(contentsOf: movableBlocks)
+            collisionSquares.append(contentsOf: movableBlocks)
         }
     }
     
