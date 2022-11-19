@@ -13,17 +13,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Game Properties
     private var levels: Levels!
     var currentLevelModel: LevelModel!
-    var currentLevel = 0
+    var currentLevel = 3
     var playerMoveSpeed = 0.2
     
     // MARK: HUD
     var levelLabel: SKLabelNode?
+    var victoryDisplayNode: SKLabelNode?
     
     // MARK: Nodes
     var playerNode: PlayerNode!
     var gridNode: GridNode!
     var goalNode: SquareNode!
-    var victoryDisplayNode: SKLabelNode?
     
     // MARK: Colliders
     var collisionNodes = [SquareNode]()

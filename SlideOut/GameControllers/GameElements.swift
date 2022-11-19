@@ -68,7 +68,7 @@ extension GameScene {
         if let movableBlocks = currentLevelModel.movableBlocks {
             let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
             for movableBlock in movableBlocks {
-                let newMovableBlock = SquareNode(square: movableBlock, size: size)
+                let newMovableBlock = MovableBlockNode(square: movableBlock, size: size)
                 newMovableBlock.position = gridNode.gridPosition(x: movableBlock.position.x, y: movableBlock.position.y)
                 gridNode.addChild(newMovableBlock)
                 collisionNodes.append(newMovableBlock)
