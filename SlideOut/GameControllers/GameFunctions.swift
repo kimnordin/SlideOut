@@ -25,9 +25,17 @@ extension GameScene {
     }
     
     func movePlayerToStart() {
-        playerNode.moving = false
         remove(node: playerNode)
         initPlayer()
+    }
+    
+    func moveMovableNodesToStart() {
+        let movableNodes = collisionNodes.filter({ $0.square.type == .movableBlock })
+        for movableNode in movableNodes {
+            remove(node: movableNode)
+        }
+        collisionNodes.removeAll(where: { $0.square.type == .movableBlock })
+        initMovableNodes()
     }
     
     @objc func swipeRight(sender: UISwipeGestureRecognizer) {
@@ -86,7 +94,7 @@ extension GameScene {
                 checkCollisionBeforeMoving(node, direction: direction, nodes: nodes)
             }
         } else if node.square.type == .player {
-            movePlayerToStart()
+            restartLevel()
         } else if node.square.type == .movableBlock {
             remove(node: node)
         }
@@ -112,6 +120,10 @@ extension GameScene {
             checkCollisionBeforeMoving(collidedNode, direction: direction, nodes: nodes)
         case (.movableBlock, .block):
             stopNode(node)
+        case (.movableBlock, .movableBlock):
+            stopNode(node)
+            guard let collidedNode = collidedNode else { return }
+            checkCollisionBeforeMoving(collidedNode, direction: direction, nodes: nodes)
         default: // No Collision
             moveNode(node, direction: direction, nodes: nodes)
         }
@@ -176,14 +188,5 @@ extension GameScene {
         }
         
         return nil
-    }
-    
-    func remove(node: SKNode) {
-        node.removeFromParent()
-    }
-
-    func endGame(){
-        let gameScene = GameScene(size: self.size)
-        self.view!.presentScene(gameScene)
     }
 }
