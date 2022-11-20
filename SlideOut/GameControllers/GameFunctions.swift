@@ -11,31 +11,13 @@ import GameplayKit
 extension GameScene {
     func movePlayer(_ direction: UISwipeGestureRecognizer.Direction) {
         if !playerNode.moving {
-            playerNode.moving = true
-            checkCollisionBeforeMoving(playerNode, direction: direction, nodes: collisionNodes)
+            setPlayerMoving(true)
+            checkCollisionBeforeMoving(playerNode, direction: direction)
         }
     }
     
-    func stopNode(_ node: SquareNode) {
-        if let playerNode = node as? PlayerNode {
-            playerNode.moving = false
-        } else if let movableNode = node as? MovableBlockNode {
-            movableNode.moving = false
-        }
-    }
-    
-    func movePlayerToStart() {
-        remove(node: playerNode)
-        initPlayer()
-    }
-    
-    func moveMovableNodesToStart() {
-        let movableNodes = collisionNodes.filter({ $0.square.type == .movableBlock })
-        for movableNode in movableNodes {
-            remove(node: movableNode)
-        }
-        collisionNodes.removeAll(where: { $0.square.type == .movableBlock })
-        initMovableNodes()
+    func setPlayerMoving(_ moving: Bool) {
+        playerNode.moving = moving
     }
     
     @objc func swipeRight(sender: UISwipeGestureRecognizer) {
@@ -49,23 +31,6 @@ extension GameScene {
     }
     @objc func swipeDown(sender: UISwipeGestureRecognizer) {
         movePlayer(.down)
-    }
-    
-    /**
-     Moves a node and updates its position given a direction.
-     - parameter node: The node to update.
-     - parameter direction: The direction to move in.
-     - returns: Closure confirming that the action completed.
-     */
-    private func moveSquareAction(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, finished: @escaping () -> ()) {
-        let newPosition = positionToMove(node, direction: direction)
-        node.square.position = newPosition
-
-        let realPosition = gridNode.gridPosition(x: newPosition.x, y: newPosition.y)
-        let moveAction = SKAction.move(to: realPosition, duration: playerMoveSpeed)
-        node.run(moveAction) {
-            finished()
-        }
     }
     
     /**
@@ -90,13 +55,29 @@ extension GameScene {
      */
     func moveNode(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) {
         if !isOutOfBounds(node.square.position, grid: gridNode.grid) {
-            moveSquareAction(node, direction: direction) { [self] in
-                checkCollisionBeforeMoving(node, direction: direction, nodes: nodes)
+            moveNodeAction(node, direction: direction) { [self] newPosition in
+                node.square.position = newPosition
+                checkCollisionBeforeMoving(node, direction: direction)
             }
         } else if node.square.type == .player {
             restartLevel()
         } else if node.square.type == .movableBlock {
-            remove(node: node)
+            removeCollisionNode(node)
+        }
+    }
+    
+    /**
+     Runs an action that moves a node, then returns the nodes updated position.
+     - parameter node: The node to update.
+     - parameter direction: The direction to move in.
+     - returns: Closure containing the updated position of the node.
+     */
+    private func moveNodeAction(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, to position: @escaping (Position) -> ()) {
+        let newPosition = positionToMove(node, direction: direction)
+        let realPosition = gridNode.gridPosition(x: newPosition.x, y: newPosition.y)
+        let moveAction = SKAction.move(to: realPosition, duration: playerMoveSpeed)
+        node.run(moveAction) {
+            position(newPosition)
         }
     }
     
@@ -106,26 +87,24 @@ extension GameScene {
      - parameter direction: The direction to check for a collision.
      - parameter nodes: The nodes to consider as colliders.
      */
-    private func checkCollisionBeforeMoving(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction, nodes: [SquareNode]) {
-        let collidedNode = nodeCollision(node, distance: 1, direction: direction, nodes: nodes)
+    private func checkCollisionBeforeMoving(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction) {
+        let collidedNode = nodeCollision(node, distance: 1, direction: direction, nodes: collisionNodes)
         
         switch (node.square.type, collidedNode?.square.type) {
         case (.player, .block):
-            stopNode(node)
+            setPlayerMoving(false)
         case (.player, .goal):
             nextLevel()
         case (.player, .movableBlock):
-            stopNode(node)
+            setPlayerMoving(false)
             guard let collidedNode = collidedNode else { return }
-            checkCollisionBeforeMoving(collidedNode, direction: direction, nodes: nodes)
-        case (.movableBlock, .block):
-            stopNode(node)
+            checkCollisionBeforeMoving(collidedNode, direction: direction)
         case (.movableBlock, .movableBlock):
-            stopNode(node)
             guard let collidedNode = collidedNode else { return }
-            checkCollisionBeforeMoving(collidedNode, direction: direction, nodes: nodes)
-        default: // No Collision
-            moveNode(node, direction: direction, nodes: nodes)
+            checkCollisionBeforeMoving(collidedNode, direction: direction)
+        case(_ , nil): // No Collision
+            moveNode(node, direction: direction, nodes: collisionNodes)
+        default: return
         }
     }
     

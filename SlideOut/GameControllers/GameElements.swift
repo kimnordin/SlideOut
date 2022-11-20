@@ -90,6 +90,24 @@ extension GameScene {
         moveMovableNodesToStart()
     }
     
+    func movePlayerToStart() {
+        remove(node: playerNode)
+        initPlayer()
+    }
+    
+    func moveMovableNodesToStart() {
+        let movableNodes = collisionNodes.filter({ $0.square.type == .movableBlock })
+        for movableNode in movableNodes {
+            removeCollisionNode(movableNode)
+        }
+        initMovableNodes()
+    }
+
+    func removeCollisionNode(_ node: SquareNode) {
+        remove(node: node)
+        collisionNodes.removeAll(where: { $0.square.id == node.square.id })
+    }
+    
     func remove(node: SKNode) {
         node.removeFromParent()
     }

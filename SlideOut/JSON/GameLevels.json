@@ -183,7 +183,7 @@
         },
         "goal": {
             "color": "green",
-            "position": { "x": 9, "y": 7 },
+            "position": { "x": 8, "y": 6 },
             "type": "goal"
         },
         "grid": {
@@ -194,19 +194,76 @@
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "x": 11, "y": 2 },
+                "position": { "x": 10, "y": 2 },
                 "type": "block"
             }
         ],
         "movableBlocks": [
             {
                 "color": "orange",
-                "position": { "x": 3, "y": 2 },
+                "position": { "x": 5, "y": 2 },
+                "type": "movableBlock"
+            }
+        ]
+    },
+    {
+        "name": "Fifth Level",
+        "player": {
+            "color": "red",
+            "position": { "x": 4, "y": 6, },
+            "type": "player"
+        },
+        "goal": {
+            "color": "green",
+            "position": { "x": 2, "y": 5 },
+            "type": "goal"
+        },
+        "grid": {
+            "width": 10,
+            "height": 8,
+            "squareSize": 30
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "x": 0, "y": 3 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 1, "y": 1 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 8, "y": 7 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 9, "y": 2 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 9, "y": 3 },
+                "type": "block"
+            }
+        ],
+        "movableBlocks": [
+            {
+                "color": "orange",
+                "position": { "x": 4, "y": 1 },
                 "type": "movableBlock"
             },
             {
                 "color": "orange",
-                "position": { "x": 6, "y": 2 },
+                "position": { "x": 6, "y": 3 },
+                "type": "movableBlock"
+            },
+            {
+                "color": "orange",
+                "position": { "x": 4, "y": 3 },
                 "type": "movableBlock"
             }
         ]
