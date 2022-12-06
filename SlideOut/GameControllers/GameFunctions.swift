@@ -85,7 +85,6 @@ extension GameScene {
      Check for a collision around a node in a given direction, running an action conforming to the type of collision that was made.
      - parameter node: The node to check around.
      - parameter direction: The direction to check for a collision.
-     - parameter nodes: The nodes to consider as colliders.
      */
     private func checkCollisionBeforeMoving(_ node: SquareNode, direction: UISwipeGestureRecognizer.Direction) {
         let collidedNode = nodeCollision(node, distance: 1, direction: direction, nodes: collisionNodes)
