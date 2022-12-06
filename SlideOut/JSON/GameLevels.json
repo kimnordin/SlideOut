@@ -2,7 +2,7 @@
     {
         "name": "First Level",
         "player": {
-            "color": "red",
+            "color": "blue",
             "position": { "x": 0, "y": 0, },
             "type": "player"
         },
@@ -42,7 +42,7 @@
     {
         "name": "Second Level",
         "player": {
-            "color": "red",
+            "color": "blue",
             "position": { "x": 0, "y": 1 },
             "type": "player"
         },
@@ -92,7 +92,7 @@
     {
         "name": "Third Level",
         "player": {
-            "color": "red",
+            "color": "blue",
             "position": { "x": 13, "y": 2, },
             "type": "player"
         },
@@ -177,7 +177,7 @@
     {
         "name": "Fourth Level",
         "player": {
-            "color": "red",
+            "color": "blue",
             "position": { "x": 1, "y": 2, },
             "type": "player"
         },
@@ -209,7 +209,7 @@
     {
         "name": "Fifth Level",
         "player": {
-            "color": "red",
+            "color": "blue",
             "position": { "x": 4, "y": 6, },
             "type": "player"
         },
@@ -265,6 +265,90 @@
                 "color": "orange",
                 "position": { "x": 4, "y": 3 },
                 "type": "movableBlock"
+            }
+        ]
+    },
+    {
+        "name": "Sixth Level",
+        "player": {
+            "color": "blue",
+            "position": { "x": 10, "y": 2, },
+            "type": "player"
+        },
+        "goal": {
+            "color": "green",
+            "position": { "x": 1, "y": 2 },
+            "type": "goal"
+        },
+        "grid": {
+            "width": 12,
+            "height": 6,
+            "squareSize": 35
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "x": 1, "y": 1 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 8, "y": 1 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 7, "y": 4 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 9, "y": 5 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 10, "y": 5 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 11, "y": 4 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 11, "y": 5 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 0, "y": 4 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 4, "y": 5 },
+                "type": "block"
+            }
+        ],
+        "movableBlocks": [
+            {
+                "color": "orange",
+                "position": { "x": 8, "y": 3 },
+                "type": "movableBlock"
+            },
+            {
+                "color": "orange",
+                "position": { "x": 10, "y": 1 },
+                "type": "movableBlock"
+            }
+        ],
+        "enemies": [
+            {
+                "color": "red",
+                "position": { "x": 4, "y": 2 },
+                "type": "enemy"
             }
         ]
     }

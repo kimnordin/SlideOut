@@ -61,6 +61,8 @@ extension GameScene {
             }
         } else if node.square.type == .player {
             restartLevel()
+        } else if node.square.type == .enemy {
+            removeCollisionNode(node)
         } else if node.square.type == .movableBlock {
             removeCollisionNode(node)
         }
@@ -94,11 +96,21 @@ extension GameScene {
             setPlayerMoving(false)
         case (.player, .goal):
             nextLevel()
+        case (.player, .enemy):
+            print("player vs enemy")
+            restartLevel()
         case (.player, .movableBlock):
+            print("player vs movableBlock")
             setPlayerMoving(false)
             guard let collidedNode = collidedNode else { return }
             checkCollisionBeforeMoving(collidedNode, direction: direction)
         case (.movableBlock, .movableBlock):
+            guard let collidedNode = collidedNode else { return }
+            checkCollisionBeforeMoving(collidedNode, direction: direction)
+        case (.movableBlock, .enemy):
+            guard let collidedNode = collidedNode else { return }
+            checkCollisionBeforeMoving(collidedNode, direction: direction)
+        case (.enemy, .enemy):
             guard let collidedNode = collidedNode else { return }
             checkCollisionBeforeMoving(collidedNode, direction: direction)
         case(_ , nil): // No Collision

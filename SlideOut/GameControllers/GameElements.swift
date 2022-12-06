@@ -64,6 +64,18 @@ extension GameScene {
         }
     }
     
+    func initEnemies() {
+        if let blocks = currentLevelModel.enemies {
+            let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
+            for block in blocks {
+                let newBlock = EnemyNode(square: block, size: size)
+                newBlock.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
+                gridNode.addChild(newBlock)
+                collisionNodes.append(newBlock)
+            }
+        }
+    }
+    
     func initMovableNodes() {
         if let movableBlockNodes = currentLevelModel.movableBlocks {
             let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
@@ -87,12 +99,21 @@ extension GameScene {
     
     func restartLevel() {
         movePlayerToStart()
+        moveEnemiesToStart()
         moveMovableNodesToStart()
     }
     
     func movePlayerToStart() {
         remove(node: playerNode)
         initPlayer()
+    }
+    
+    func moveEnemiesToStart() {
+        let enemyNodes = collisionNodes.filter({ $0.square.type == .enemy })
+        for enemyNode in enemyNodes {
+            removeCollisionNode(enemyNode)
+        }
+        initEnemies()
     }
     
     func moveMovableNodesToStart() {

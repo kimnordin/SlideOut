@@ -13,7 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Game Properties
     private var levels: Levels!
     var currentLevelModel: LevelModel!
-    var currentLevel = 0
+    var currentLevel = 5
     var playerMoveSpeed = 0.2
     
     // MARK: HUD
@@ -40,6 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initGoal()
         initPlayer()
         initBlocks()
+        initEnemies()
         initMovableNodes()
         addActions()
         createHUD()
