@@ -97,10 +97,8 @@ extension GameScene {
         case (.player, .goal):
             nextLevel()
         case (.player, .enemy):
-            print("player vs enemy")
             restartLevel()
         case (.player, .movableBlock):
-            print("player vs movableBlock")
             setPlayerMoving(false)
             guard let collidedNode = collidedNode else { return }
             checkCollisionBeforeMoving(collidedNode, direction: direction)
