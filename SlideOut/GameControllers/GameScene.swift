@@ -39,6 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initGrid()
         initGoal()
         initPlayer()
+        initPoints()
         initBlocks()
         initEnemies()
         initMovableNodes()

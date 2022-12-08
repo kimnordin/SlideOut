@@ -92,10 +92,14 @@ extension GameScene {
         let collidedNode = nodeCollision(node, distance: 1, direction: direction, nodes: collisionNodes)
         
         switch (node.square.type, collidedNode?.square.type) {
-        case (.player, .block):
-            setPlayerMoving(false)
         case (.player, .goal):
             nextLevel()
+        case (.player, .point):
+            guard let collidedNode = collidedNode else { return }
+            remove(node: collidedNode)
+            moveNode(node, direction: direction, nodes: collisionNodes)
+        case (.player, .block):
+            setPlayerMoving(false)
         case (.player, .enemy):
             restartLevel()
         case (.player, .movableBlock):
