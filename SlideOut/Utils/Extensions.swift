@@ -15,7 +15,8 @@ extension UIColor {
             "green": .green,
             "yellow": .yellow,
             "blue": .blue,
-            "orange": .orange
+            "orange": .orange,
+            "purple": .purple
         ]
         let cleanedName = name.replacingOccurrences(of: " ", with: "").lowercased()
         return allColors[cleanedName]

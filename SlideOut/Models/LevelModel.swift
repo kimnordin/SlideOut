@@ -14,13 +14,15 @@ struct LevelModel: Codable {
     let player: Square
     let goal: Square
     let grid: Grid
+    let points: [Square]?
     let blocks: [Square]?
     let enemies: [Square]?
     let movableBlocks: [Square]?
+    
 }
 
 enum SquareType: String, Codable {
-    case player, goal, block, enemy, movableBlock
+    case player, goal, point, block, enemy, movableBlock
 }
 
 typealias Levels = [LevelModel]

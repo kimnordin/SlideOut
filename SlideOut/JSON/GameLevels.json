@@ -16,6 +16,13 @@
             "height": 5,
             "squareSize": 40
         },
+        "points": [
+            {
+                "color": "purple",
+                "position": { "x": 2, "y": 2 },
+                "type": "point"
+            }
+        ],
         "blocks": [
             {
                 "color": "yellow",
@@ -349,6 +356,48 @@
                 "color": "red",
                 "position": { "x": 4, "y": 2 },
                 "type": "enemy"
+            }
+        ]
+    },
+    {
+        "name": "Seventh Level",
+        "player": {
+            "color": "blue",
+            "position": { "x": 23, "y": 2, },
+            "type": "player"
+        },
+        "goal": {
+            "color": "green",
+            "position": { "x": 1, "y": 2 },
+            "type": "goal"
+        },
+        "grid": {
+            "width": 25,
+            "height": 12,
+            "squareSize": 18
+        },
+        "blocks": [
+            {
+                "color": "yellow",
+                "position": { "x": 23, "y": 5 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 20, "y": 2 },
+                "type": "block"
+            }
+        ],
+        "movableBlocks": [
+            {
+                "color": "orange",
+                "position": { "x": 8, "y": 3 },
+                "type": "movableBlock"
+            },
+            {
+                "color": "orange",
+                "position": { "x": 10, "y": 1 },
+                "type": "movableBlock"
             }
         ]
     }

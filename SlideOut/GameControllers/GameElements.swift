@@ -52,6 +52,18 @@ extension GameScene {
         collisionNodes.append(goalNode)
     }
     
+    func initPoints() {
+        if let points = currentLevelModel.points {
+            let size = CGSize(width: gridNode.grid.squareSize/2, height: gridNode.grid.squareSize/2)
+            for point in points {
+                let newPoint = SquareNode(square: point, size: size)
+                newPoint.position = gridNode.gridPosition(x: point.position.x, y: point.position.y)
+                gridNode.addChild(newPoint)
+                collisionNodes.append(newPoint)
+            }
+        }
+    }
+    
     func initBlocks() {
         if let blocks = currentLevelModel.blocks {
             let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
@@ -68,10 +80,10 @@ extension GameScene {
         if let blocks = currentLevelModel.enemies {
             let size = CGSize(width: gridNode.grid.squareSize, height: gridNode.grid.squareSize)
             for block in blocks {
-                let newBlock = EnemyNode(square: block, size: size)
-                newBlock.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
-                gridNode.addChild(newBlock)
-                collisionNodes.append(newBlock)
+                let newEnemy = EnemyNode(square: block, size: size)
+                newEnemy.position = gridNode.gridPosition(x: block.position.x, y: block.position.y)
+                gridNode.addChild(newEnemy)
+                collisionNodes.append(newEnemy)
             }
         }
     }
@@ -99,6 +111,7 @@ extension GameScene {
     
     func restartLevel() {
         movePlayerToStart()
+        movePointsToStart()
         moveEnemiesToStart()
         moveMovableNodesToStart()
     }
@@ -106,6 +119,15 @@ extension GameScene {
     func movePlayerToStart() {
         remove(node: playerNode)
         initPlayer()
+    }
+    
+    func movePointsToStart() {
+        let pointNodes = collisionNodes.filter({ $0.square.type == .point })
+        for pointNode in pointNodes {
+            removeCollisionNode(pointNode)
+        }
+        initPoints()
+        
     }
     
     func moveEnemiesToStart() {
