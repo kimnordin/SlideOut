@@ -101,12 +101,15 @@ extension GameScene {
     }
     
     func createHUD() {
-        victoryDisplayNode = self.childNode(withName: "victory") as? SKLabelNode
-        victoryDisplayNode?.text = "Winner!!!"
-        victoryDisplayNode?.isHidden = true
-        
         levelLabel = self.childNode(withName: "level") as? SKLabelNode
         levelLabel?.text = currentLevelModel.name
+        
+        scoreLabel = self.childNode(withName: "score") as? SKLabelNode
+        scoreLabel?.text = "Score: 0"
+        
+        victoryLabel = self.childNode(withName: "victory") as? SKLabelNode
+        victoryLabel?.text = "Winner!!!"
+        victoryLabel?.isHidden = true
     }
     
     func restartLevel() {
@@ -149,6 +152,15 @@ extension GameScene {
     func removeCollisionNode(_ node: SquareNode) {
         remove(node: node)
         collisionNodes.removeAll(where: { $0.square.id == node.square.id })
+    }
+    
+    func addPoint() {
+        score += 1
+        scoreLabel?.text = "Score: \(score)"
+    }
+    
+    func resetPoints() {
+        score = 0
     }
     
     func remove(node: SKNode) {
