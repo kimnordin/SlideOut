@@ -368,7 +368,7 @@
         },
         "goal": {
             "color": "green",
-            "position": { "x": 1, "y": 2 },
+            "position": { "x": 2, "y": 2 },
             "type": "goal"
         },
         "grid": {
@@ -376,10 +376,52 @@
             "height": 12,
             "squareSize": 18
         },
+        "points": [
+            {
+                "color": "purple",
+                "position": { "x": 9, "y": 9 },
+                "type": "point"
+            }
+        ],
         "blocks": [
             {
                 "color": "yellow",
+                "position": { "x": 3, "y": 8 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 0, "y": 9 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 9, "y": 3 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 9, "y": 4 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 10, "y": 4 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 22, "y": 0 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
                 "position": { "x": 23, "y": 5 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 19, "y": 4 },
                 "type": "block"
             },
             {
@@ -391,13 +433,35 @@
         "movableBlocks": [
             {
                 "color": "orange",
-                "position": { "x": 8, "y": 3 },
+                "position": { "x": 0, "y": 1 },
                 "type": "movableBlock"
             },
             {
                 "color": "orange",
                 "position": { "x": 10, "y": 1 },
                 "type": "movableBlock"
+            },
+            {
+                "color": "orange",
+                "position": { "x": 18, "y": 9 },
+                "type": "movableBlock"
+            },
+            {
+                "color": "orange",
+                "position": { "x": 21, "y": 10 },
+                "type": "movableBlock"
+            },
+            {
+                "color": "orange",
+                "position": { "x": 22, "y": 3 },
+                "type": "movableBlock"
+            }
+        ],
+        "enemies": [
+            {
+                "color": "red",
+                "position": { "x": 12, "y": 9 },
+                "type": "enemy"
             }
         ]
     }

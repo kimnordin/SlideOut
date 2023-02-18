@@ -13,12 +13,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Game Properties
     private var levels: Levels!
     var currentLevelModel: LevelModel!
-    var currentLevel = 0
+    var currentLevel = 6
     var playerMoveSpeed = 0.2
+    var score = 0
     
     // MARK: HUD
     var levelLabel: SKLabelNode?
-    var victoryDisplayNode: SKLabelNode?
+    var scoreLabel: SKLabelNode?
+    var victoryLabel: SKLabelNode?
     
     // MARK: Nodes
     var playerNode: PlayerNode!
@@ -50,6 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func clearGame() {
         collisionNodes = []
         remove(node: gridNode)
+        resetPoints()
     }
     
     func nextLevel() {
@@ -58,7 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             clearGame()
             initGame()
         } else {
-            victoryDisplayNode?.isHidden = false
+            victoryLabel?.isHidden = false
         }
     }
 }
