@@ -363,30 +363,30 @@
         "name": "Seventh Level",
         "player": {
             "color": "blue",
-            "position": { "x": 23, "y": 2, },
+            "position": { "x": 13, "y": 2, },
             "type": "player"
         },
         "goal": {
             "color": "green",
-            "position": { "x": 2, "y": 2 },
+            "position": { "x": 3, "y": 2 },
             "type": "goal"
         },
         "grid": {
-            "width": 25,
+            "width": 15,
             "height": 12,
             "squareSize": 18
         },
         "points": [
             {
                 "color": "purple",
-                "position": { "x": 9, "y": 9 },
+                "position": { "x": 5, "y": 9 },
                 "type": "point"
             }
         ],
         "blocks": [
             {
                 "color": "yellow",
-                "position": { "x": 3, "y": 8 },
+                "position": { "x": 4, "y": 8 },
                 "type": "block"
             },
             {
@@ -396,7 +396,12 @@
             },
             {
                 "color": "yellow",
-                "position": { "x": 9, "y": 3 },
+                "position": { "x": 12, "y": 0 },
+                "type": "block"
+            },
+            {
+                "color": "yellow",
+                "position": { "x": 13, "y": 5 },
                 "type": "block"
             },
             {
@@ -406,27 +411,7 @@
             },
             {
                 "color": "yellow",
-                "position": { "x": 10, "y": 4 },
-                "type": "block"
-            },
-            {
-                "color": "yellow",
-                "position": { "x": 22, "y": 0 },
-                "type": "block"
-            },
-            {
-                "color": "yellow",
-                "position": { "x": 23, "y": 5 },
-                "type": "block"
-            },
-            {
-                "color": "yellow",
-                "position": { "x": 19, "y": 4 },
-                "type": "block"
-            },
-            {
-                "color": "yellow",
-                "position": { "x": 20, "y": 2 },
+                "position": { "x": 10, "y": 2 },
                 "type": "block"
             }
         ],
@@ -438,30 +423,18 @@
             },
             {
                 "color": "orange",
-                "position": { "x": 10, "y": 1 },
+                "position": { "x": 8, "y": 9 },
                 "type": "movableBlock"
             },
             {
                 "color": "orange",
-                "position": { "x": 18, "y": 9 },
+                "position": { "x": 11, "y": 10 },
                 "type": "movableBlock"
             },
             {
                 "color": "orange",
-                "position": { "x": 21, "y": 10 },
+                "position": { "x": 12, "y": 3 },
                 "type": "movableBlock"
-            },
-            {
-                "color": "orange",
-                "position": { "x": 22, "y": 3 },
-                "type": "movableBlock"
-            }
-        ],
-        "enemies": [
-            {
-                "color": "red",
-                "position": { "x": 12, "y": 9 },
-                "type": "enemy"
             }
         ]
     }
