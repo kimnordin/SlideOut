@@ -109,13 +109,7 @@ extension GameScene {
             setPlayerMoving(false)
             guard let collidedNode = collidedNode else { return }
             checkCollisionBeforeMoving(collidedNode, direction: direction)
-        case (.movableBlock, .movableBlock):
-            guard let collidedNode = collidedNode else { return }
-            checkCollisionBeforeMoving(collidedNode, direction: direction)
-        case (.movableBlock, .enemy):
-            guard let collidedNode = collidedNode else { return }
-            checkCollisionBeforeMoving(collidedNode, direction: direction)
-        case (.enemy, .enemy):
+        case (.movableBlock, .movableBlock), (.movableBlock, .enemy), (.enemy, .enemy):
             guard let collidedNode = collidedNode else { return }
             checkCollisionBeforeMoving(collidedNode, direction: direction)
         case(_ , nil): // No Collision
