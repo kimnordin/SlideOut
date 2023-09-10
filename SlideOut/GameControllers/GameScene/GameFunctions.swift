@@ -6,7 +6,6 @@
 //
 
 import SpriteKit
-import GameplayKit
 
 extension GameScene {
     func movePlayer(_ direction: UISwipeGestureRecognizer.Direction) {

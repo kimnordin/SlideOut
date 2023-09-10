@@ -11,10 +11,12 @@
 		F24534EB2926DAB7008C8793 /* GridModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EA2926DAB7008C8793 /* GridModel.swift */; };
 		F24534ED2926DAC9008C8793 /* SquareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EC2926DAC9008C8793 /* SquareModel.swift */; };
 		F24534EF2926DAE5008C8793 /* PositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24534EE2926DAE5008C8793 /* PositionModel.swift */; };
+		F27D1C532AAE5ED90064EE0C /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27D1C522AAE5ED90064EE0C /* MenuScene.swift */; };
 		F2804688293FCB6D00FDEE8F /* EnemyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2804687293FCB6D00FDEE8F /* EnemyNode.swift */; };
 		F29D1A6728E9BD7C00D67843 /* LevelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29D1A6628E9BD7C00D67843 /* LevelModel.swift */; };
 		F2A98A5729292A9800FE7910 /* SquareNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A98A5629292A9800FE7910 /* SquareNode.swift */; };
 		F2A98A592929479F00FE7910 /* MovableBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A98A582929479F00FE7910 /* MovableBlockNode.swift */; };
+		F2D61F9E2AAB28D600E72962 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D61F9D2AAB28D600E72962 /* MenuScene.sks */; };
 		F2DF34B028E9B40700F53303 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF34AF28E9B40700F53303 /* Extensions.swift */; };
 		F2EBAAD225D950D00060D34E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EBAAD125D950D00060D34E /* AppDelegate.swift */; };
 		F2EBAAD425D950D00060D34E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2EBAAD325D950D00060D34E /* GameScene.sks */; };
@@ -33,10 +35,12 @@
 		F24534EA2926DAB7008C8793 /* GridModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridModel.swift; sourceTree = "<group>"; };
 		F24534EC2926DAC9008C8793 /* SquareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareModel.swift; sourceTree = "<group>"; };
 		F24534EE2926DAE5008C8793 /* PositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionModel.swift; sourceTree = "<group>"; };
+		F27D1C522AAE5ED90064EE0C /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		F2804687293FCB6D00FDEE8F /* EnemyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyNode.swift; sourceTree = "<group>"; };
 		F29D1A6628E9BD7C00D67843 /* LevelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModel.swift; sourceTree = "<group>"; };
 		F2A98A5629292A9800FE7910 /* SquareNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareNode.swift; sourceTree = "<group>"; };
 		F2A98A582929479F00FE7910 /* MovableBlockNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableBlockNode.swift; sourceTree = "<group>"; };
+		F2D61F9D2AAB28D600E72962 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
 		F2DF34AF28E9B40700F53303 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F2EBAACE25D950D00060D34E /* SlideOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2EBAAD125D950D00060D34E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,12 +86,31 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		F29D1A6928E9D41400D67843 /* GameScenes */ = {
+		F29D1A6928E9D41400D67843 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				F2EBAAD325D950D00060D34E /* GameScene.sks */,
+				F2D61F9D2AAB28D600E72962 /* MenuScene.sks */,
 			);
-			path = GameScenes;
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		F2D61F9F2AAB292D00E72962 /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				F2EBAAF125D951680060D34E /* GameScene.swift */,
+				F2EBAAF325D951680060D34E /* GameElements.swift */,
+				F2EBAAF225D951680060D34E /* GameFunctions.swift */,
+			);
+			path = GameScene;
+			sourceTree = "<group>";
+		};
+		F2D61FA02AAB293700E72962 /* MenuScene */ = {
+			isa = PBXGroup;
+			children = (
+				F27D1C522AAE5ED90064EE0C /* MenuScene.swift */,
+			);
+			path = MenuScene;
 			sourceTree = "<group>";
 		};
 		F2DF34B128E9B41100F53303 /* Utils */ = {
@@ -121,10 +144,9 @@
 				F29D1A6828E9BD7F00D67843 /* Models */,
 				F2EBAAE725D951590060D34E /* Nodes */,
 				F2EBAAF025D951680060D34E /* GameControllers */,
-				F29D1A6928E9D41400D67843 /* GameScenes */,
+				F29D1A6928E9D41400D67843 /* Scenes */,
 				F2DF34B128E9B41100F53303 /* Utils */,
 				F2EBAAD125D950D00060D34E /* AppDelegate.swift */,
-				F2EBAAFB25D9535E0060D34E /* GameViewController.swift */,
 				F2EBAADB25D950D00060D34E /* Main.storyboard */,
 				F2EBAADE25D950D10060D34E /* Assets.xcassets */,
 				F2EBAAE025D950D10060D34E /* Info.plist */,
@@ -147,9 +169,9 @@
 		F2EBAAF025D951680060D34E /* GameControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F2EBAAF125D951680060D34E /* GameScene.swift */,
-				F2EBAAF325D951680060D34E /* GameElements.swift */,
-				F2EBAAF225D951680060D34E /* GameFunctions.swift */,
+				F2EBAAFB25D9535E0060D34E /* GameViewController.swift */,
+				F2D61FA02AAB293700E72962 /* MenuScene */,
+				F2D61F9F2AAB292D00E72962 /* GameScene */,
 			);
 			path = GameControllers;
 			sourceTree = "<group>";
@@ -214,6 +236,7 @@
 				F2194EC225E57E7700CF7DB6 /* GameLevels.json in Resources */,
 				F2EBAADD25D950D00060D34E /* Main.storyboard in Resources */,
 				F2EBAAD425D950D00060D34E /* GameScene.sks in Resources */,
+				F2D61F9E2AAB28D600E72962 /* MenuScene.sks in Resources */,
 				F2EBAADF25D950D10060D34E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,6 +261,7 @@
 				F2804688293FCB6D00FDEE8F /* EnemyNode.swift in Sources */,
 				F2A98A592929479F00FE7910 /* MovableBlockNode.swift in Sources */,
 				F24534EF2926DAE5008C8793 /* PositionModel.swift in Sources */,
+				F27D1C532AAE5ED90064EE0C /* MenuScene.swift in Sources */,
 				F2EBAAF625D951680060D34E /* GameElements.swift in Sources */,
 				F2EBAAF525D951680060D34E /* GameFunctions.swift in Sources */,
 			);

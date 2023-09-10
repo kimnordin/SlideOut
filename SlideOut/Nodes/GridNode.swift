@@ -5,9 +5,7 @@
 //  Created by Kim Nordin on 2021-02-14.
 //
 
-import Foundation
 import SpriteKit
-import GameplayKit
 
 class GridNode: SKSpriteNode {
     var grid: Grid!

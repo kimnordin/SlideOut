@@ -5,7 +5,6 @@
 //  Created by Kim Nordin on 2021-02-02.
 //
 
-import GameplayKit
 import SpriteKit
 
 extension GameScene {
@@ -14,7 +13,6 @@ extension GameScene {
         do {
             let data = try Data(contentsOf: path)
             let levels = try? JSONDecoder().decode(Levels.self, from: data)
-            print("levels: ", levels)
             return levels
         } catch {
             print(error)
