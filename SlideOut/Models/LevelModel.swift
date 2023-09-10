@@ -4,7 +4,6 @@
 //
 //  Created by Kim Nordin on 2022-10-02.
 //
-//   let level = try? newJSONDecoder().decode(Levels.self, from: jsonData)
 
 import Foundation
 

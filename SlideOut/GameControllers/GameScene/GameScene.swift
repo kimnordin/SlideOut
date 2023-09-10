@@ -6,7 +6,6 @@
 //
 
 import SpriteKit
-import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -34,7 +33,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initGame()
     }
     
-    func initGame() {
+    private func initGame() {
         levels = initLevel(from: "GameLevels", withExtension: "json")
         currentLevelModel = levels[currentLevel]
         
